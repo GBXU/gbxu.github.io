@@ -1,0 +1,1117 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WebDataMining," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="L7 Applications of Clustering聚类：类间分离，类内集中聚类的类型，根据不同的类型应用不同的算法：  well-separated clusters     center-based clusters     contiguous clusters     density-based clusters     Property or Conceptual cluster">
+<meta name="keywords" content="WebDataMining">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络数据挖掘-L7 聚类的应用">
+<meta property="og:url" content="http://gbxu.github.io/2017/07/26/网络数据挖掘-L7/index.html">
+<meta property="og:site_name" content="XuGB&#39;s Blog">
+<meta property="og:description" content="L7 Applications of Clustering聚类：类间分离，类内集中聚类的类型，根据不同的类型应用不同的算法：  well-separated clusters     center-based clusters     contiguous clusters     density-based clusters     Property or Conceptual cluster">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-44e4aa4c7402f5cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-740f90e9ce106eae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d67620d62ccc5052.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-e5bce2214f605298.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-2d24dc3bc590ced0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-cdfe26704fe1ac63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-a9954c87eb6a10c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-006dd277bc3f108e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d520671244a70e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-34e3b72d5b7ce258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-bce1b27ab9d47133.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d3259bdc47e40982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-8abbad938c907f70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-bf5640fe16ff9cd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-50306ff431fcde74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-c7c665f7f8f4b2d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-07-26T03:47:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络数据挖掘-L7 聚类的应用">
+<meta name="twitter:description" content="L7 Applications of Clustering聚类：类间分离，类内集中聚类的类型，根据不同的类型应用不同的算法：  well-separated clusters     center-based clusters     contiguous clusters     density-based clusters     Property or Conceptual cluster">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-44e4aa4c7402f5cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gbxu.github.io/2017/07/26/网络数据挖掘-L7/"/>
+
+
+
+
+
+  <title> 网络数据挖掘-L7 聚类的应用 | XuGB's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XuGB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/07/26/网络数据挖掘-L7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                网络数据挖掘-L7 聚类的应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T11:43:29+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataMining/" itemprop="url" rel="index">
+                    <span itemprop="name">DataMining</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h2 id="L7-Applications-of-Clustering"><a href="#L7-Applications-of-Clustering" class="headerlink" title="L7 Applications of Clustering"></a>L7 Applications of Clustering</h2><h3 id="聚类：类间分离，类内集中"><a href="#聚类：类间分离，类内集中" class="headerlink" title="聚类：类间分离，类内集中"></a>聚类：类间分离，类内集中</h3><p>聚类的类型，根据不同的类型应用不同的算法：</p>
+<ul>
+<li><p>well-separated clusters</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-44e4aa4c7402f5cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+<li><p>center-based clusters</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-740f90e9ce106eae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+<li><p>contiguous clusters</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-d67620d62ccc5052.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+<li><p>density-based clusters</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-e5bce2214f605298.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+<li><p>Property or Conceptual clusters</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-2d24dc3bc590ced0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Described-by-an-Objective-Function-目标函数"><a href="#Described-by-an-Objective-Function-目标函数" class="headerlink" title="Described by an Objective Function 目标函数"></a>Described by an Objective Function 目标函数</h3><ul>
+<li>聚类的过程就是maximize或者minimize目标函数的过程</li>
+<li>通过枚举所有可能的聚类并用目标函数去计算goodness</li>
+<li>通用与否：<ul>
+<li>Hierarchical clustering algorithms针对local object</li>
+<li>Partitional algorithms通用</li>
+</ul>
+</li>
+<li>从数据中学到参数<h3 id="数据挖掘中-聚类的要求"><a href="#数据挖掘中-聚类的要求" class="headerlink" title="数据挖掘中 聚类的要求"></a>数据挖掘中 聚类的要求</h3></li>
+<li>大规模</li>
+<li>不同类型的属性</li>
+<li>聚类的形状</li>
+<li>初始化的参数尽量少</li>
+<li>噪声和极端值</li>
+<li>对输入数据的顺序不敏感</li>
+<li>高维数据</li>
+<li>用户规定的约束</li>
+<li>可解释性和可用性</li>
+</ul>
+<h3 id="相似性"><a href="#相似性" class="headerlink" title="相似性"></a>相似性</h3><p>相似性的判断比聚类算法更重要，它表明了对数据的侧重点的不同。</p>
+<ul>
+<li>(Dis)similarity measures  相异性度量<br>Jagota defines a dissimilarity measure as a function f(x,y) such that f(x,y) &gt; f(w,z) if and only if x is less similar to y than w is to z</li>
+<li>data item的折线图 欧式距离<br><img src="http://upload-images.jianshu.io/upload_images/2812342-cdfe26704fe1ac63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2812342-a9954c87eb6a10c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+<li><p>折线图的趋势<br>皮尔逊线性相关Pearson Linear Correlation PLC</p>
+<ul>
+<li><p>相似性的计算</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-006dd277bc3f108e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+<li><p>相异性度量</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-d520671244a70e30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>当其他非线性相关时，用PLC则无法来衡量相似性。</p>
+<h3 id="Hierarchical-Clustering"><a href="#Hierarchical-Clustering" class="headerlink" title="Hierarchical Clustering"></a>Hierarchical Clustering</h3><p>参考<a href="http://blog.pluskid.org/?p=407" target="_blank" rel="noopener">层次化的聚类</a></p>
+<p><strong>算法：</strong>自底向上，一开始，每个数据点各自为一个类别，然后每一次迭代选取距离最近(Average Linkage\Single Linkage两个最近的点\Complete Linkage两个最远的点)的两个类别，把他们合并，直到最后只剩下一个类别为止，至此一棵树构造完成。</p>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>确定类别数K</li>
+<li>利用树，自底向上人工判断类别。直接用k-means等方法无法直接判断出准确的有意义的类别。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>可能无法分出不同的类，或者需要有特定的cutoff values</li>
+</ul>
+<h3 id="k-means-clustering-和-聚类的质量评估Cluster-Quality"><a href="#k-means-clustering-和-聚类的质量评估Cluster-Quality" class="headerlink" title="k-means clustering  和 聚类的质量评估Cluster Quality"></a>k-means clustering  和 聚类的质量评估Cluster Quality</h3><p>之前学习过k-means知道，k-means需要给出k以及一开始的random值。不同的k和随机值会导致结果的不同，而且当数据形状不好时该算法分类并不好。</p>
+<ul>
+<li>K的问题<br>因此选择k并且利用Cluster Quality Measures评估CQ就有必要了<br><img src="http://upload-images.jianshu.io/upload_images/2812342-34e3b72d5b7ce258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>如图，计算Q即每个类别的相异性程度的和要尽量小，即越紧凑。该评估强调了分类后的数据的一致性homogeneity<br><img src="http://upload-images.jianshu.io/upload_images/2812342-bce1b27ab9d47133.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+<li>初始random的问题<br><img src="http://upload-images.jianshu.io/upload_images/2812342-d3259bdc47e40982.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+<li>对密度分布的处理<br><img src="http://upload-images.jianshu.io/upload_images/2812342-8abbad938c907f70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2812342-bf5640fe16ff9cd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+</ul>
+<h3 id="density-based-clusters"><a href="#density-based-clusters" class="headerlink" title="density-based clusters"></a>density-based clusters</h3><p>该算法需要数据的形状、处理噪音、一次扫描、需要设置密度的阈值<br>Several interesting studies:</p>
+<ul>
+<li>DBSCAN: Ester, et al. (KDD’96)</li>
+<li>OPTICS: Ankerst, et al (SIGMOD’99).</li>
+<li>DENCLUE: Hinneburg &amp; D. Keim (KDD’98)</li>
+<li>CLIQUE: Agrawal, et al. (SIGMOD’98)</li>
+</ul>
+<h4 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a><a href="http://www.cnblogs.com/chaosimple/archive/2013/07/01/3164775.html" target="_blank" rel="noopener">DBSCAN</a></h4><p>核心对象、e邻域、直接密度可达、密度可达、密度相连<br>算法：</p>
+<blockquote>
+<p>扫描整个数据集，找到任意一个核心点，对该核心点进行扩充。扩充的方法是寻找从该核心点出发的所有密度相连的数据点（注意是密度相连）。遍历该核心点的e邻域内的所有核心点（因为边界点是无法扩充的），寻找与这些数据点密度相连的点，直到没有可以扩充的数据点为止。最后聚类成的簇的边界节点都是非核心数据点。之后就是重新扫描数据集（不包括之前寻找到的簇中的任何数据点），寻找没有被聚类的核心点，再重复上面的步骤，对该核心点进行扩充直到数据集中没有新的核心点为止。数据集中没有包含在任何簇中的数据点就构成异常点。</p>
+</blockquote>
+<p>伪代码:所有点都找密度相连，再选出最大的集合，挖掉该集合。重复算法。</p>
+<blockquote>
+<p>算法描述：<br>算法： DBSCAN<br>输入： E——半径<br>MinPts——给定点在E邻域内成为核心对象的最小邻域点数。<br>D——集合。<br>输出： 目标类簇集合<br>方法： Repeat<br>1） 判断输入点是否为核心对象<br>2） 找出核心对象的E邻域中的所有直接密度可达点。<br>Until 所有输入点都判断完毕<br>Repeat<br>针对所有核心对象的E邻域内所有直接密度可达点找到最大密度相连对象集合，中间涉及到一些密度可达对象的合并。<br>Until 所有核心对象的E领域都遍历完毕</p>
+</blockquote>
+<p>弱点：<br>密度的差异<br>数据维度高<br><img src="http://upload-images.jianshu.io/upload_images/2812342-50306ff431fcde74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>对密度和核心对象的确定：<br><img src="http://upload-images.jianshu.io/upload_images/2812342-c7c665f7f8f4b2d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<h3 id="聚类的应用"><a href="#聚类的应用" class="headerlink" title="聚类的应用"></a>聚类的应用</h3><p>市场调研：用户基数大的时候，选出每个类的典型用户去调研。<br>土地使用：开店铺的选址。根据每个地的属性（人流量、人流种类、消费习惯）聚类，然后去找卖的好的奶茶店在哪种类型的地里，然后去其他相同类型的地里开店。可以用百度API</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebDataMining/" rel="tag"># WebDataMining</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/魔鬼经济学/" rel="next" title="魔鬼经济学">
+                <i class="fa fa-chevron-left"></i> 魔鬼经济学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/网络数据挖掘-L8/" rel="prev" title="网络数据挖掘-L8 分类">
+                网络数据挖掘-L8 分类 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.ico"
+               alt="XuGB" />
+          <p class="site-author-name" itemprop="name">XuGB</p>
+           
+              <p class="site-description motion-element" itemprop="description">Notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=0&id=643466423&auto=0&height=32"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#L7-Applications-of-Clustering"><span class="nav-number">1.</span> <span class="nav-text"><a href="#L7-Applications-of-Clustering" class="headerlink" title="L7 Applications of Clustering"></a>L7 Applications of Clustering</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#聚类：类间分离，类内集中"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x805A;&#x7C7B;&#xFF1A;&#x7C7B;&#x95F4;&#x5206;&#x79BB;&#xFF0C;&#x7C7B;&#x5185;&#x96C6;&#x4E2D;" class="headerlink" title="&#x805A;&#x7C7B;&#xFF1A;&#x7C7B;&#x95F4;&#x5206;&#x79BB;&#xFF0C;&#x7C7B;&#x5185;&#x96C6;&#x4E2D;"></a>&#x805A;&#x7C7B;&#xFF1A;&#x7C7B;&#x95F4;&#x5206;&#x79BB;&#xFF0C;&#x7C7B;&#x5185;&#x96C6;&#x4E2D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Described-by-an-Objective-Function-目标函数"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#Described-by-an-Objective-Function-&#x76EE;&#x6807;&#x51FD;&#x6570;" class="headerlink" title="Described by an Objective Function &#x76EE;&#x6807;&#x51FD;&#x6570;"></a>Described by an Objective Function &#x76EE;&#x6807;&#x51FD;&#x6570;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据挖掘中-聚类的要求"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D;-&#x805A;&#x7C7B;&#x7684;&#x8981;&#x6C42;" class="headerlink" title="&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D; &#x805A;&#x7C7B;&#x7684;&#x8981;&#x6C42;"></a>&#x6570;&#x636E;&#x6316;&#x6398;&#x4E2D; &#x805A;&#x7C7B;&#x7684;&#x8981;&#x6C42;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相似性"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#&#x76F8;&#x4F3C;&#x6027;" class="headerlink" title="&#x76F8;&#x4F3C;&#x6027;"></a>&#x76F8;&#x4F3C;&#x6027;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchical-Clustering"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#Hierarchical-Clustering" class="headerlink" title="Hierarchical Clustering"></a>Hierarchical Clustering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k-means-clustering-和-聚类的质量评估Cluster-Quality"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#k-means-clustering-&#x548C;-&#x805A;&#x7C7B;&#x7684;&#x8D28;&#x91CF;&#x8BC4;&#x4F30;Cluster-Quality" class="headerlink" title="k-means clustering  &#x548C; &#x805A;&#x7C7B;&#x7684;&#x8D28;&#x91CF;&#x8BC4;&#x4F30;Cluster Quality"></a>k-means clustering  &#x548C; &#x805A;&#x7C7B;&#x7684;&#x8D28;&#x91CF;&#x8BC4;&#x4F30;Cluster Quality</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#density-based-clusters"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#density-based-clusters" class="headerlink" title="density-based clusters"></a>density-based clusters</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DBSCAN"><span class="nav-number">1.7.1.</span> <span class="nav-text"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a><a href="http://www.cnblogs.com/chaosimple/archive/2013/07/01/3164775.html" target="_blank" rel="noopener">DBSCAN</a></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚类的应用"><span class="nav-number">1.8.</span> <span class="nav-text"><a href="#&#x805A;&#x7C7B;&#x7684;&#x5E94;&#x7528;" class="headerlink" title="&#x805A;&#x7C7B;&#x7684;&#x5E94;&#x7528;"></a>&#x805A;&#x7C7B;&#x7684;&#x5E94;&#x7528;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuGB</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: window.location.pathname,
+                    owner: 'GBXU',
+                    repo: 'gbxu.github.io',
+                    oauth: {
+                        client_id: '181b263ac1753db99459',
+                        client_secret: '6336bf552f4a2a5cedfe493e12dddb85c8d83372',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

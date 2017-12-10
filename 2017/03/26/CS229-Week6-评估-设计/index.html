@@ -1,0 +1,1119 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Machine Learning,CS229," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="第六周10 Advice for Applying Machine Learning10.1 决定下一步做什么当我们运用训练好了的模型来预测未知数据的时候发现有较大的误差，我们下一步可以做什么？:   获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。 尝试减少特征的数量 尝试获得更多的特征 尝试增加多项式特征 尝试减少归一化程度 λ 尝试增加归一">
+<meta name="keywords" content="Machine Learning,CS229">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS229 Week6 评估&amp;设计">
+<meta property="og:url" content="http://gbxu.github.io/2017/03/26/CS229-Week6-评估-设计/index.html">
+<meta property="og:site_name" content="XuGB&#39;s Blog">
+<meta property="og:description" content="第六周10 Advice for Applying Machine Learning10.1 决定下一步做什么当我们运用训练好了的模型来预测未知数据的时候发现有较大的误差，我们下一步可以做什么？:   获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。 尝试减少特征的数量 尝试获得更多的特征 尝试增加多项式特征 尝试减少归一化程度 λ 尝试增加归一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-c4f708253fcdeaf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-70d62c1e6a6b63e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-428acf512968ad71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-98a19a6a5c11a23d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-30277b772290b15b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-26T11:16:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS229 Week6 评估&amp;设计">
+<meta name="twitter:description" content="第六周10 Advice for Applying Machine Learning10.1 决定下一步做什么当我们运用训练好了的模型来预测未知数据的时候发现有较大的误差，我们下一步可以做什么？:   获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可考虑先采用下面的几种方法。 尝试减少特征的数量 尝试获得更多的特征 尝试增加多项式特征 尝试减少归一化程度 λ 尝试增加归一">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-c4f708253fcdeaf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gbxu.github.io/2017/03/26/CS229-Week6-评估-设计/"/>
+
+
+
+
+
+  <title> CS229 Week6 评估&设计 | XuGB's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XuGB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/03/26/CS229-Week6-评估-设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CS229 Week6 评估&设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T18:43:18+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-CS229/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/CS229</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h1 id="第六周"><a href="#第六周" class="headerlink" title="第六周"></a>第六周</h1><h2 id="10-Advice-for-Applying-Machine-Learning"><a href="#10-Advice-for-Applying-Machine-Learning" class="headerlink" title="10 Advice for Applying Machine Learning"></a>10 Advice for Applying Machine Learning</h2><h3 id="10-1-决定下一步做什么"><a href="#10-1-决定下一步做什么" class="headerlink" title="10.1 决定下一步做什么"></a>10.1 决定下一步做什么</h3><p>当我们运用训练好了的模型来预测未知数据的时候发现有较大的误差，我们下一步可以做什么？:</p>
+<blockquote>
+<ol>
+<li>获得更多的训练实例——通常是有效的，但代价较大，下面的方法也可能有效，可<br>考虑先采用下面的几种方法。</li>
+<li>尝试减少特征的数量</li>
+<li>尝试获得更多的特征</li>
+<li>尝试增加多项式特征</li>
+<li>尝试减少归一化程度 λ</li>
+<li>尝试增加归一化程度 λ</li>
+</ol>
+</blockquote>
+<h3 id="10-2-评估一个假设"><a href="#10-2-评估一个假设" class="headerlink" title="10.2 评估一个假设"></a>10.2 评估一个假设</h3><p>把样本数据分为训练集、测试集，以此来评估模型。</p>
+<h3 id="10-3-模型选择和交叉验证集"><a href="#10-3-模型选择和交叉验证集" class="headerlink" title="10.3 模型选择和交叉验证集"></a>10.3 模型选择和交叉验证集</h3><p>假设我们要在 10 个不同次数的二项式模型之间进行选择，<br>我们需要使用 60%的数据作为训练集，使用20%的数据作为交叉验证集， 使用 20%的数据作为测试集。<br>模型选择的方法为：</p>
+<blockquote>
+<ol>
+<li>使用训练集训练出 10 个模型</li>
+<li>用 10 个模型分别对交叉验证集计算得出交叉验证误差（代价函数的值）</li>
+<li>选取代价函数值最小的模型</li>
+<li>用步骤 3 中选出的模型对测试集计算得出推广误差（代价函数的值）</li>
+</ol>
+</blockquote>
+<h3 id="10-4-诊断偏差和方差"><a href="#10-4-诊断偏差和方差" class="headerlink" title="10.4 诊断偏差和方差"></a>10.4 诊断偏差和方差</h3><blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-c4f708253fcdeaf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<ul>
+<li>对于训练集，当 d 较小时，模型拟合程度更低，误差较大；随着 d 的增长，拟合程度提高，误差减小。</li>
+<li>对于交叉验证集，当 d 较小时，模型拟合程度低，误差较大；但是随着 d 的增长，误差呈现先减小后增大的趋势，转折点是我们的模型开始过拟合训练数据集的时候。<ul>
+<li>训练集误差和交叉验证集误差近似时： 偏差/欠拟合</li>
+<li>交叉验证集误差远大于训练集误差时： 方差/过拟合</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="10-5-归一化和偏差-方差"><a href="#10-5-归一化和偏差-方差" class="headerlink" title="10.5 归一化和偏差/方差"></a>10.5 归一化和偏差/方差</h3><p>选择 λ 的方法为：</p>
+<blockquote>
+<ol>
+<li>使用训练集训练出 12 个不同程度归一化的模型</li>
+<li>用 12 模型分别对交叉验证集计算的出交叉验证误差</li>
+<li>选择得出交叉验证误差最小的模型</li>
+<li>运用步骤 3 中选出模型对测试集计算得出推广误差，我们也可以同时将训练集交叉验证集模型的代价函数误差与λ的值绘制在一张图表上：<ul>
+<li>当 λ 较小时，训练集误差较小（过拟合）而交叉验证集误差较大</li>
+<li>随着 λ 的增加，训练集误差不断增加（欠拟合），而交叉验证集误差则是先减小后增加<br><img src="http://upload-images.jianshu.io/upload_images/2812342-70d62c1e6a6b63e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="10-6-学习曲线"><a href="#10-6-学习曲线" class="headerlink" title="10.6 学习曲线"></a>10.6 学习曲线</h3><p>学习曲线：训练集误差和交叉验证集误差作为训练集实例数量（ m）的函数绘制的图表<br>应用：</p>
+<blockquote>
+<ul>
+<li>在高偏差/欠拟合的情况下，增加数据到训练集不一定能有帮助<br><img src="http://upload-images.jianshu.io/upload_images/2812342-428acf512968ad71.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+<li>利用学习曲线识别高方差/过拟合：<br>当交叉验证集误差远大于训练集误差时，往训练集增加更多数据可以提高模型的效果。<img src="http://upload-images.jianshu.io/upload_images/2812342-98a19a6a5c11a23d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></li>
+</ul>
+</blockquote>
+<h3 id="10-7-决定下一步做什么"><a href="#10-7-决定下一步做什么" class="headerlink" title="10.7 决定下一步做什么"></a>10.7 决定下一步做什么</h3><blockquote>
+<ol>
+<li>获得更多的训练实例——解决高方差</li>
+<li>尝试减少特征的数量——解决高方差</li>
+<li>尝试获得更多的特征——解决高偏差</li>
+<li>尝试增加多项式特征——解决高偏差</li>
+<li>尝试减少归一化程度 λ——解决高偏差</li>
+<li>尝试增加归一化程度 λ——解决高方差</li>
+</ol>
+</blockquote>
+<ul>
+<li>使用较小的神经网络，类似于参数较少的情况，容易导致高偏差和欠拟合，但计算代价较小</li>
+<li>使用较大的神经网络，类似于参数较多的情况，容易导致高方差和过拟合，虽然计算代价比较大，但是可以通过归一化手段来调整而更加适应数据。</li>
+<li>通常选择较大的神经网络并采用归一化处理会比采用较小的神经网络效果要好。</li>
+<li>对于神经网络中的隐藏层的层数的选择，通常从一层开始逐渐增加层数，为了更好地作选择，可以把数据分为训练集、交叉验证集和测试集，针对不同隐藏层层数的神经网络训练神经网络，然后选择交叉验证集代价最小的神经网络</li>
+</ul>
+<h2 id="11-机器学习系统的设计-Machine-Learning-System-Design"><a href="#11-机器学习系统的设计-Machine-Learning-System-Design" class="headerlink" title="11 机器学习系统的设计(Machine Learning System Design)"></a>11 机器学习系统的设计(Machine Learning System Design)</h2><h3 id="11-1-首先要做什么"><a href="#11-1-首先要做什么" class="headerlink" title="11.1 首先要做什么"></a>11.1 首先要做什么</h3><p>列出可能的方向：当我们使用机器学习时，总是可以“头脑风暴”一下，想出一堆方法来<br>试试。在11.2会教导如何更可能地选择一个真正的好方法，然后花精力去研究。</p>
+<h3 id="11-2-误差分析error-analysis"><a href="#11-2-误差分析error-analysis" class="headerlink" title="11.2 误差分析error analysis"></a>11.2 误差分析error analysis</h3><p>选出正确的方向：<br><strong>构建一个学习算法的推荐方法为：</strong></p>
+<blockquote>
+<ol>
+<li>从一个简单的能快速实现的算法开始，实现该算法并用交叉验证集数据测试这个算法</li>
+<li>绘制<strong>学习曲线</strong>，决定是增加更多数据，或者添加更多特征，还是其他选择</li>
+<li>进行<strong>误差分析</strong>：人工检查交叉验证集中我们算法中产生预测误差的实例，看看这些实例是否有某种系统化的趋势（然后从出现次数最多的情况开始着手优化）</li>
+<li>误差分析并不总能帮助我们判断应该采取怎样的行动。有时我们需要尝试不同的模型，然后进行比较，在模型比较时，用数值来判断哪一个模型更好更有效，通常我们是看<strong>交叉验证</strong>集的误差。</li>
+</ol>
+</blockquote>
+<h3 id="11-3-类偏斜的误差度量Error-Metrics-for-Skewed-Classes"><a href="#11-3-类偏斜的误差度量Error-Metrics-for-Skewed-Classes" class="headerlink" title="11.3 类偏斜的误差度量Error Metrics for Skewed Classes"></a>11.3 类偏斜的误差度量Error Metrics for Skewed Classes</h3><p>类偏斜情况：表现为我们的训练集中有非常多的同一种类的实例，只有很少或没有其他类的实例。<br>因为样本的偏差，所有误差分析此时不能作为评判算法的标准，因此提出另一方法来作为<strong>偏斜类问题的评估度量值</strong><br>查准率（Precision）和查全率（Recall）我们将算法预测的结果分成四种情况：</p>
+<blockquote>
+<ol>
+<li>正确肯定（ True Positive,TP）：预测为真，实际为真</li>
+<li>正确否定（ True Negative,TN）：预测为假，实际为假</li>
+<li>错误肯定（ False Positive,FP）：预测为真，实际为假</li>
+<li>错误否定（ False Negative,FN）：预测为假，实际为真<br>则：<br><strong>查准率=TP/（ TP+FP）</strong>例，在所有我们预测有恶性肿瘤的病人中，实际上有恶性肿瘤的病人的百分比，越高越好。<br><strong>查全率=TP/（ TP+FN）</strong>例，在所有实际上有恶性肿瘤的病人中，成功预测有恶性肿瘤的病人的百分比，越高越好。</li>
+</ol>
+</blockquote>
+<h3 id="11-4-查全率和查准率之间的权衡"><a href="#11-4-查全率和查准率之间的权衡" class="headerlink" title="11.4 查全率和查准率之间的权衡"></a>11.4 查全率和查准率之间的权衡</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">目的</th>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>更高的查准率</strong></td>
+<td style="text-align:center">使用比 0.5 更大的阀值，如 0.7， 0.9</td>
+<td style="text-align:center">减少错误预测病人为恶性肿瘤的情况，同时却会增加未能成功预测肿瘤为恶性的情况。</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>提高查全率</strong></td>
+<td style="text-align:center">使用比 0.5 更小的阀值，如 0.3</td>
+<td style="text-align:center">尽可能地让所有有可能是恶性肿瘤的病人都得到进一步地检查、诊断，我们可以。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>查全率与查准率的关系：</strong></p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-30277b772290b15b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>$F_{1}Score=\frac{PR}{P+R}$</p>
+</blockquote>
+<h3 id="11-5-机器学习的数据"><a href="#11-5-机器学习的数据" class="headerlink" title="11.5 机器学习的数据"></a>11.5 机器学习的数据</h3><p>在机器学习中的普遍共识： “取得成功的人不是拥有最好算法的人， 而是拥有最多数据的人”。<br><strong>关键的假设</strong>：<br>|条件|结果|<br>|:-:|:-:|<br>|特征值有足够的信息量， 且有一类很好的函数|这能保证低误差|<br>|有大量的训练数据集|这能保证得到更多的方差值|</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/CS229/" rel="tag"># CS229</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/CS229-Week5-BP/" rel="next" title="CS229 Week5 BP">
+                <i class="fa fa-chevron-left"></i> CS229 Week5 BP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/26/CS229-Week7-SVM/" rel="prev" title="CS229 Week7 SVM">
+                CS229 Week7 SVM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.ico"
+               alt="XuGB" />
+          <p class="site-author-name" itemprop="name">XuGB</p>
+           
+              <p class="site-description motion-element" itemprop="description">Notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=0&id=643466423&auto=0&height=32"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第六周"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7B2C;&#x516D;&#x5468;" class="headerlink" title="&#x7B2C;&#x516D;&#x5468;"></a>&#x7B2C;&#x516D;&#x5468;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-Advice-for-Applying-Machine-Learning"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#10-Advice-for-Applying-Machine-Learning" class="headerlink" title="10 Advice for Applying Machine Learning"></a>10 Advice for Applying Machine Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-决定下一步做什么"><span class="nav-number">1.1.1.</span> <span class="nav-text"><a href="#10-1-&#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;" class="headerlink" title="10.1 &#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;"></a>10.1 &#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-评估一个假设"><span class="nav-number">1.1.2.</span> <span class="nav-text"><a href="#10-2-&#x8BC4;&#x4F30;&#x4E00;&#x4E2A;&#x5047;&#x8BBE;" class="headerlink" title="10.2 &#x8BC4;&#x4F30;&#x4E00;&#x4E2A;&#x5047;&#x8BBE;"></a>10.2 &#x8BC4;&#x4F30;&#x4E00;&#x4E2A;&#x5047;&#x8BBE;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-3-模型选择和交叉验证集"><span class="nav-number">1.1.3.</span> <span class="nav-text"><a href="#10-3-&#x6A21;&#x578B;&#x9009;&#x62E9;&#x548C;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x96C6;" class="headerlink" title="10.3 &#x6A21;&#x578B;&#x9009;&#x62E9;&#x548C;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x96C6;"></a>10.3 &#x6A21;&#x578B;&#x9009;&#x62E9;&#x548C;&#x4EA4;&#x53C9;&#x9A8C;&#x8BC1;&#x96C6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-4-诊断偏差和方差"><span class="nav-number">1.1.4.</span> <span class="nav-text"><a href="#10-4-&#x8BCA;&#x65AD;&#x504F;&#x5DEE;&#x548C;&#x65B9;&#x5DEE;" class="headerlink" title="10.4 &#x8BCA;&#x65AD;&#x504F;&#x5DEE;&#x548C;&#x65B9;&#x5DEE;"></a>10.4 &#x8BCA;&#x65AD;&#x504F;&#x5DEE;&#x548C;&#x65B9;&#x5DEE;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-5-归一化和偏差-方差"><span class="nav-number">1.1.5.</span> <span class="nav-text"><a href="#10-5-&#x5F52;&#x4E00;&#x5316;&#x548C;&#x504F;&#x5DEE;-&#x65B9;&#x5DEE;" class="headerlink" title="10.5 &#x5F52;&#x4E00;&#x5316;&#x548C;&#x504F;&#x5DEE;/&#x65B9;&#x5DEE;"></a>10.5 &#x5F52;&#x4E00;&#x5316;&#x548C;&#x504F;&#x5DEE;/&#x65B9;&#x5DEE;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-6-学习曲线"><span class="nav-number">1.1.6.</span> <span class="nav-text"><a href="#10-6-&#x5B66;&#x4E60;&#x66F2;&#x7EBF;" class="headerlink" title="10.6 &#x5B66;&#x4E60;&#x66F2;&#x7EBF;"></a>10.6 &#x5B66;&#x4E60;&#x66F2;&#x7EBF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-7-决定下一步做什么"><span class="nav-number">1.1.7.</span> <span class="nav-text"><a href="#10-7-&#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;" class="headerlink" title="10.7 &#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;"></a>10.7 &#x51B3;&#x5B9A;&#x4E0B;&#x4E00;&#x6B65;&#x505A;&#x4EC0;&#x4E48;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-机器学习系统的设计-Machine-Learning-System-Design"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#11-&#x673A;&#x5668;&#x5B66;&#x4E60;&#x7CFB;&#x7EDF;&#x7684;&#x8BBE;&#x8BA1;-Machine-Learning-System-Design" class="headerlink" title="11 &#x673A;&#x5668;&#x5B66;&#x4E60;&#x7CFB;&#x7EDF;&#x7684;&#x8BBE;&#x8BA1;(Machine Learning System Design)"></a>11 &#x673A;&#x5668;&#x5B66;&#x4E60;&#x7CFB;&#x7EDF;&#x7684;&#x8BBE;&#x8BA1;(Machine Learning System Design)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-1-首先要做什么"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#11-1-&#x9996;&#x5148;&#x8981;&#x505A;&#x4EC0;&#x4E48;" class="headerlink" title="11.1 &#x9996;&#x5148;&#x8981;&#x505A;&#x4EC0;&#x4E48;"></a>11.1 &#x9996;&#x5148;&#x8981;&#x505A;&#x4EC0;&#x4E48;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-误差分析error-analysis"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#11-2-&#x8BEF;&#x5DEE;&#x5206;&#x6790;error-analysis" class="headerlink" title="11.2 &#x8BEF;&#x5DEE;&#x5206;&#x6790;error analysis"></a>11.2 &#x8BEF;&#x5DEE;&#x5206;&#x6790;error analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-类偏斜的误差度量Error-Metrics-for-Skewed-Classes"><span class="nav-number">1.2.3.</span> <span class="nav-text"><a href="#11-3-&#x7C7B;&#x504F;&#x659C;&#x7684;&#x8BEF;&#x5DEE;&#x5EA6;&#x91CF;Error-Metrics-for-Skewed-Classes" class="headerlink" title="11.3 &#x7C7B;&#x504F;&#x659C;&#x7684;&#x8BEF;&#x5DEE;&#x5EA6;&#x91CF;Error Metrics for Skewed Classes"></a>11.3 &#x7C7B;&#x504F;&#x659C;&#x7684;&#x8BEF;&#x5DEE;&#x5EA6;&#x91CF;Error Metrics for Skewed Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-4-查全率和查准率之间的权衡"><span class="nav-number">1.2.4.</span> <span class="nav-text"><a href="#11-4-&#x67E5;&#x5168;&#x7387;&#x548C;&#x67E5;&#x51C6;&#x7387;&#x4E4B;&#x95F4;&#x7684;&#x6743;&#x8861;" class="headerlink" title="11.4 &#x67E5;&#x5168;&#x7387;&#x548C;&#x67E5;&#x51C6;&#x7387;&#x4E4B;&#x95F4;&#x7684;&#x6743;&#x8861;"></a>11.4 &#x67E5;&#x5168;&#x7387;&#x548C;&#x67E5;&#x51C6;&#x7387;&#x4E4B;&#x95F4;&#x7684;&#x6743;&#x8861;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-5-机器学习的数据"><span class="nav-number">1.2.5.</span> <span class="nav-text"><a href="#11-5-&#x673A;&#x5668;&#x5B66;&#x4E60;&#x7684;&#x6570;&#x636E;" class="headerlink" title="11.5 &#x673A;&#x5668;&#x5B66;&#x4E60;&#x7684;&#x6570;&#x636E;"></a>11.5 &#x673A;&#x5668;&#x5B66;&#x4E60;&#x7684;&#x6570;&#x636E;</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuGB</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: window.location.pathname,
+                    owner: 'GBXU',
+                    repo: 'gbxu.github.io',
+                    oauth: {
+                        client_id: '181b263ac1753db99459',
+                        client_secret: '6336bf552f4a2a5cedfe493e12dddb85c8d83372',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

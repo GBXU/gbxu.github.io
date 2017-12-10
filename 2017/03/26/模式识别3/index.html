@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Life & CS" />
+  <meta name="keywords" content="Machine Learning," />
 
 
 
@@ -87,16 +87,24 @@
 
 
 
-<meta name="description" content="Notebook">
-<meta property="og:type" content="website">
-<meta property="og:title" content="XuGB&#39;s Blog">
-<meta property="og:url" content="http://gbxu.github.io/archives/2017/index.html">
+<meta name="description" content="第三章 概率密度函数的估计比贝叶斯决策多了估算先验概率和类条件概率密度函数在实际中先验概率和类条件概率密度函数常常是未知的。设计分类器的过程一般分为两步，称为基于样本的两步贝叶斯决策。   利用样本集估计类条件概率密度与先验概率 将估计量代入贝叶斯决策规则，完成分类器设计   在统计学上，有以下几个常用标准和概念：   无偏性：参数x的估计量$(x_1,x_2..x_n)$的数学期望等于x，则称">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模式识别 第三章 概率密度函数的估计">
+<meta property="og:url" content="http://gbxu.github.io/2017/03/26/模式识别3/index.html">
 <meta property="og:site_name" content="XuGB&#39;s Blog">
-<meta property="og:description" content="Notebook">
+<meta property="og:description" content="第三章 概率密度函数的估计比贝叶斯决策多了估算先验概率和类条件概率密度函数在实际中先验概率和类条件概率密度函数常常是未知的。设计分类器的过程一般分为两步，称为基于样本的两步贝叶斯决策。   利用样本集估计类条件概率密度与先验概率 将估计量代入贝叶斯决策规则，完成分类器设计   在统计学上，有以下几个常用标准和概念：   无偏性：参数x的估计量$(x_1,x_2..x_n)$的数学期望等于x，则称">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-e80b89b29e0a57ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-308962cd2af36794.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-6d513642a3a4e08a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-5ceb75ca1ad43738.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-751f648acd706902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-11T13:40:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XuGB&#39;s Blog">
-<meta name="twitter:description" content="Notebook">
+<meta name="twitter:title" content="模式识别 第三章 概率密度函数的估计">
+<meta name="twitter:description" content="第三章 概率密度函数的估计比贝叶斯决策多了估算先验概率和类条件概率密度函数在实际中先验概率和类条件概率密度函数常常是未知的。设计分类器的过程一般分为两步，称为基于样本的两步贝叶斯决策。   利用样本集估计类条件概率密度与先验概率 将估计量代入贝叶斯决策规则，完成分类器设计   在统计学上，有以下几个常用标准和概念：   无偏性：参数x的估计量$(x_1,x_2..x_n)$的数学期望等于x，则称">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-e80b89b29e0a57ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -124,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://gbxu.github.io/archives/2017/"/>
+  <link rel="canonical" href="http://gbxu.github.io/2017/03/26/模式识别3/"/>
 
 
 
 
 
-  <title> 归档 | XuGB's Blog </title>
+  <title> 模式识别 第三章 概率密度函数的估计 | XuGB's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -155,7 +163,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,254 +301,255 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 37 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/03/26/模式识别3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                模式识别 第三章 概率密度函数的估计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T18:47:49+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-卢晓春-模式识别引论/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/卢晓春 模式识别引论</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <a id="more"></a>
+<h2 id="第三章-概率密度函数的估计"><a href="#第三章-概率密度函数的估计" class="headerlink" title="第三章 概率密度函数的估计"></a>第三章 概率密度函数的估计</h2><p>比贝叶斯决策多了估算<strong>先验概率和类条件概率密度函数</strong><br>在实际中先验概率和类条件概率密度函数常常是未知的。设计分类器的过程一般分为两步，称为基于样本的两步贝叶斯决策。</p>
+<blockquote>
+<ul>
+<li>利用样本集估计类条件概率密度与先验概率</li>
+<li>将估计量代入贝叶斯决策规则，完成分类器设计</li>
+</ul>
+</blockquote>
+<p>在统计学上，有以下几个常用标准和概念：</p>
+<blockquote>
+<ul>
+<li>无偏性：参数x的估计量$(x_1,x_2..x_n)$的数学期望等于x，则称估计是无偏的，当样本数趋于无穷时才有的无偏性称为渐进无偏</li>
+<li>有效性：方差更小的估计，更有效</li>
+<li>一致性：如果有 $\lim\limits_{n\to\infty}P(|\hat x - x|&gt;\epsilon)=0$，则称为一致估计</li>
+<li>点估计、区间估计。统计量、参数空间、基于平均和方差的评价</li>
+</ul>
+</blockquote>
+<p>整体思路：</p>
+<blockquote>
+<ul>
+<li>如何利用样本集估计$\hat p(x|w_i)$和$\hat p(w_i)$<ul>
+<li>在典型的有监督模式识别问题中，估计先验概率较为简单。</li>
+<li>类条件概率密度估计难度在于：一般来说，训练样本总数较少；x的维数较大时，存在计算复杂度等问题。</li>
+<li>从样本集推断总体概率分布的方法可以归纳为2种<ul>
+<li>参数估计：总体概率密度函数形式已知，但某些参数未知。<ul>
+<li>监督参数估计：样本所属类别已知</li>
+<li>非监督参数估计：未知样本类别</li>
+</ul>
+</li>
+<li>非参数估计：已知样本类别，未知总体概率密度函数形式，要求直接推断概率密度函数本身。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>估计量的性质如何</li>
+<li>利用样本集估计错误率的方法</li>
+</ul>
+</blockquote>
+<h3 id="最大似然估计-一般用这个"><a href="#最大似然估计-一般用这个" class="headerlink" title="最大似然估计(一般用这个)"></a>最大似然估计(一般用这个)</h3><p>待估计参数被看做是确定性的，取值未知的量。最佳估计就是使得产生已观测到的样本的概率为最大的那个值。<br><img src="http://upload-images.jianshu.io/upload_images/2812342-e80b89b29e0a57ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>例子：</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-308962cd2af36794.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2812342-6d513642a3a4e08a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2812342-5ceb75ca1ad43738.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><img src="http://upload-images.jianshu.io/upload_images/2812342-751f648acd706902.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+<h3 id="贝叶斯估计"><a href="#贝叶斯估计" class="headerlink" title="贝叶斯估计"></a>贝叶斯估计</h3><p>把待估计参数看做是符合某种先验概率分布的随机变量。对样本进行观测的过程，就是把先验概率密度转换为后验概率密度，使用样本信息修正对参数的估计值。<br>贝叶斯决策与贝叶斯估计两者都是立足于使贝叶斯风险最小，只是要解决的问题不同，前者是要<strong>决策x的真实状态</strong>，而后者则是要<strong>估计X所属总体分布的参数</strong>。</p>
+<h3 id="对比总结"><a href="#对比总结" class="headerlink" title="对比总结"></a>对比总结</h3><ul>
+<li>贝叶斯估计方法有很强的理论和算法基础，但在实际应用中，最大似然估计更为简便。</li>
+<li>用本章介绍的估计结果以及第二章贝叶斯决策来设计分类器时，最终系统误差来源可能如下<ul>
+<li>贝叶斯误差：由p(x|ωi)之间的互相重叠造成，不可消除。</li>
+<li>模型误差：选择了不正确的模型导致。可消除设计者根据对问题的先验知识和理解来选择模型</li>
+<li>估计误差：采用有限样本进行估计造成的误差。可以通过增加样本个数来减小。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/07/31/转：你想戴一顶什么样的博士帽/" itemprop="url">
-              
-                <span itemprop="name">转：你想戴一顶什么样的博士帽 李开复</span>
-              
-            </a>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
         
-      </h1>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-31T21:06:42+08:00"
-              content="2017-07-31" >
-          07-31
-        </time>
-      </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/模式识别2/" rel="next" title="模式识别 第二章 统计决策方法 贝叶斯决策理论">
+                <i class="fa fa-chevron-left"></i> 模式识别 第二章 统计决策方法 贝叶斯决策理论
+              </a>
+            
+          </div>
 
-    </header>
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/26/模式识别4-5/" rel="prev" title="模式识别 第四 五章 线性分类器 非线性判别函数">
+                模式识别 第四 五章 线性分类器 非线性判别函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L11-L12/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L11-L12 观念抽取及深度学习的介绍</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:57:16+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L10/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L10</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:54:52+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L9/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L9 SVM 决策树</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:48:56+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L8/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L8 分类</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:47:07+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L7/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L7 聚类的应用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:43:29+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2017/page/6/">6</a><a class="extend next" rel="next" href="/archives/2017/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -548,6 +557,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
 
         </div>
         
@@ -567,8 +584,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/logo.ico"
@@ -632,6 +658,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-概率密度函数的估计"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7B2C;&#x4E09;&#x7AE0;-&#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x7684;&#x4F30;&#x8BA1;" class="headerlink" title="&#x7B2C;&#x4E09;&#x7AE0; &#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x7684;&#x4F30;&#x8BA1;"></a>&#x7B2C;&#x4E09;&#x7AE0; &#x6982;&#x7387;&#x5BC6;&#x5EA6;&#x51FD;&#x6570;&#x7684;&#x4F30;&#x8BA1;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最大似然估计-一般用这个"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x6700;&#x5927;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;-&#x4E00;&#x822C;&#x7528;&#x8FD9;&#x4E2A;" class="headerlink" title="&#x6700;&#x5927;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;(&#x4E00;&#x822C;&#x7528;&#x8FD9;&#x4E2A;)"></a>&#x6700;&#x5927;&#x4F3C;&#x7136;&#x4F30;&#x8BA1;(&#x4E00;&#x822C;&#x7528;&#x8FD9;&#x4E2A;)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贝叶斯估计"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x8D1D;&#x53F6;&#x65AF;&#x4F30;&#x8BA1;" class="headerlink" title="&#x8D1D;&#x53F6;&#x65AF;&#x4F30;&#x8BA1;"></a>&#x8D1D;&#x53F6;&#x65AF;&#x4F30;&#x8BA1;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对比总结"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x5BF9;&#x6BD4;&#x603B;&#x7ED3;" class="headerlink" title="&#x5BF9;&#x6BD4;&#x603B;&#x7ED3;"></a>&#x5BF9;&#x6BD4;&#x603B;&#x7ED3;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -766,11 +808,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   

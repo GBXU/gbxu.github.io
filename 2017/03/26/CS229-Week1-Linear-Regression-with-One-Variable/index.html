@@ -1,0 +1,1070 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Machine Learning,CS229," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="吴恩达的Machine LearningMachine Learning是Coursera上的一个课程。很受入门者的推崇。我在学习了BP算法(Back Propagation反向传播)之后开始观看。 第一周1 Introduction1.1 welcome机器学习很有用也很有市场。 1.2 what is  ML 学习算法主要是监督学习和无监督学习 如何选择学习算法  1.3 监督学习Super">
+<meta name="keywords" content="Machine Learning,CS229">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS229 Week1 Linear Regression with-One Variable">
+<meta property="og:url" content="http://gbxu.github.io/2017/03/26/CS229-Week1-Linear-Regression-with-One-Variable/index.html">
+<meta property="og:site_name" content="XuGB&#39;s Blog">
+<meta property="og:description" content="吴恩达的Machine LearningMachine Learning是Coursera上的一个课程。很受入门者的推崇。我在学习了BP算法(Back Propagation反向传播)之后开始观看。 第一周1 Introduction1.1 welcome机器学习很有用也很有市场。 1.2 what is  ML 学习算法主要是监督学习和无监督学习 如何选择学习算法  1.3 监督学习Super">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-bf30661c645bc7d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-b56c51d68b5ad580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-707e199e40dc0d38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-e60f608c00cc0e93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-09d84795241f9b91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-03-26T11:14:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS229 Week1 Linear Regression with-One Variable">
+<meta name="twitter:description" content="吴恩达的Machine LearningMachine Learning是Coursera上的一个课程。很受入门者的推崇。我在学习了BP算法(Back Propagation反向传播)之后开始观看。 第一周1 Introduction1.1 welcome机器学习很有用也很有市场。 1.2 what is  ML 学习算法主要是监督学习和无监督学习 如何选择学习算法  1.3 监督学习Super">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-bf30661c645bc7d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gbxu.github.io/2017/03/26/CS229-Week1-Linear-Regression-with-One-Variable/"/>
+
+
+
+
+
+  <title> CS229 Week1 Linear Regression with-One Variable | XuGB's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XuGB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/03/26/CS229-Week1-Linear-Regression-with-One-Variable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CS229 Week1 Linear Regression with-One Variable
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T16:34:36+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-CS229/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/CS229</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h1 id="吴恩达的Machine-Learning"><a href="#吴恩达的Machine-Learning" class="headerlink" title="吴恩达的Machine Learning"></a>吴恩达的Machine Learning</h1><p><a href="https://www.coursera.org/learn/machine-learning/" target="_blank" rel="noopener">Machine Learning</a>是Coursera上的一个课程。很受入门者的推崇。我在学习了BP算法(Back Propagation反向传播)之后开始观看。</p>
+<h1 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h2><h3 id="1-1-welcome"><a href="#1-1-welcome" class="headerlink" title="1.1 welcome"></a>1.1 welcome</h3><p>机器学习很有用也很有市场。</p>
+<h3 id="1-2-what-is-ML"><a href="#1-2-what-is-ML" class="headerlink" title="1.2 what is  ML"></a>1.2 what is  ML</h3><ul>
+<li>学习算法主要是监督学习和无监督学习</li>
+<li>如何选择学习算法</li>
+</ul>
+<h3 id="1-3-监督学习Supervised-Learning"><a href="#1-3-监督学习Supervised-Learning" class="headerlink" title="1.3 监督学习Supervised Learning"></a>1.3 监督学习Supervised Learning</h3><p>两个例子：</p>
+<ul>
+<li>Regression回归问题（房价）：连续值</li>
+<li>Classification分类问题（癌症）：离散值</li>
+</ul>
+<h3 id="1-4-无监督学习Unsupervised-Learning-聚类算法"><a href="#1-4-无监督学习Unsupervised-Learning-聚类算法" class="headerlink" title="1.4 无监督学习Unsupervised Learning 聚类算法"></a>1.4 无监督学习Unsupervised Learning 聚类算法</h3><p>作用：不知道数据集的信息，机器来找到不同的聚类和结构关系<br>例子：</p>
+<ul>
+<li>google　news(相关新闻会聚集在一起)</li>
+<li>很多人的基因放在一起，来自动的辨认个体类型</li>
+<li>应用于机器的协同工作</li>
+<li>应用于社交网络分析</li>
+<li>应用于公司客户的细分市场，针对性营销</li>
+<li>应用于天文科学</li>
+<li>应用于嘈杂声音中的区分（鸡尾酒会算法）</li>
+</ul>
+<h2 id="2-单变量线性回归-Linear-Regression-with-One-Variable"><a href="#2-单变量线性回归-Linear-Regression-with-One-Variable" class="headerlink" title="2 单变量线性回归(Linear Regression with One Variable)"></a>2 单变量线性回归(Linear Regression with One Variable)</h2><h3 id="2-1-Model-Representation-模型表示"><a href="#2-1-Model-Representation-模型表示" class="headerlink" title="2.1 - Model Representation 模型表示"></a>2.1 - Model Representation 模型表示</h3><p>我们的第一个学习算法是线性回归算法。<br>例子：房价预测<br>通过单变量size of house和price的关系，求拟合函数，用于预测价格。</p>
+<blockquote>
+<pre><code>               training set
+            learning algorithm
+size of house -&gt;hypothesis-&gt; estimated price
+</code></pre><p>$h(x)=θ_0+θ_1*x$</p>
+</blockquote>
+<h3 id="2-2-代价函数"><a href="#2-2-代价函数" class="headerlink" title="2.2 代价函数"></a>2.2 代价函数</h3><p>在建模的过程中，引入的parameters $ \theta_0$和$\theta_1$的初始值会导致建模误差(modeling error)，为了预测房价的准确，我们应该使得误差尽量小，于是引入cost function来衡量误差。<br>包括回归问题在内的大多数问题，cost function用误差平方代价函数都是很好用的：</p>
+<blockquote>
+<p>cost function：<br>$$(θ_0,θ<em>1)= \frac{1}{2m} \sum</em>{i=1}^{m} (h(x_i)-y_i)^2$$</p>
+</blockquote>
+<h3 id="2-3-代价函数的直观理解"><a href="#2-3-代价函数的直观理解" class="headerlink" title="2.3 代价函数的直观理解"></a>2.3 代价函数的直观理解</h3><blockquote>
+<ul>
+<li>hypothesis：$h(x)=θ_0+θ_1*x$</li>
+<li>Parameters:$\theta_0$和$\theta_1$</li>
+<li>Cost function:$$J(θ_0,θ<em>1)= \frac{1}{2m}\sum</em>{1}^{m}(h(x_i) - y_i)^2$$</li>
+<li>Goal:$minJ(\theta_0,\theta_1)$<br><img src="http://upload-images.jianshu.io/upload_images/2812342-bf30661c645bc7d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>简化假设：$θ_0=0$即$h(x)=θ_1*x$，如此$J(θ_1)$变成一个二次函数，有最低点</li>
+</ul>
+</blockquote>
+<h3 id="2-4-代价函数的直观理解II"><a href="#2-4-代价函数的直观理解II" class="headerlink" title="2.4 代价函数的直观理解II"></a>2.4 代价函数的直观理解II</h3><blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-b56c51d68b5ad580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>等线图（contour plot）：若不做简化，则价值函数就从平面二次函数变为三维中的曲面（MATLAB实现），就可以在自变量平面上画等值线</p>
+</blockquote>
+<h3 id="2-5-梯度下降-Gradient-Descent"><a href="#2-5-梯度下降-Gradient-Descent" class="headerlink" title="2.5 梯度下降 Gradient Descent"></a>2.5 梯度下降 Gradient Descent</h3><p>有了直观感受，我们的目标降低$J(\theta)$就是找到最低点。<br><em>注：正规方程(normal equations)也能求J函数的最小值，但是计算量大，因此用梯度下降法</em></p>
+<blockquote>
+<p>梯度下降：设置$(\theta_0,\theta_1,…\theta_n)$的初始值，按照梯度下降(下降最多的方向)设置新的$\theta$</p>
+</blockquote>
+<p>批量梯度下降法的公式：</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-707e199e40dc0d38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>批量梯度下降法Batch gradient descent:每一步都用到了所有数据<br>$\alpha$：learning rate<br>$\theta$：同步更新</p>
+</blockquote>
+<h3 id="2-6-梯度下降的直观理解"><a href="#2-6-梯度下降的直观理解" class="headerlink" title="2.6 梯度下降的直观理解"></a>2.6 梯度下降的直观理解</h3><p>梯度下降中，计算的$\frac{\sigma J(\theta)}{\sigma \theta_j}$可以说是斜率，当该值很小的时候，可能就是到达最小值了，但也可能是局部最小值。</p>
+<blockquote>
+<p>收敛到一个局部最小解上。或者凸函数（convex function）是全局最小值</p>
+</blockquote>
+<h3 id="2-7-梯度下降的线性回归-Gradient-Descent-For-Linear-Regression"><a href="#2-7-梯度下降的线性回归-Gradient-Descent-For-Linear-Regression" class="headerlink" title="2.7 梯度下降的线性回归 Gradient Descent For Linear Regression"></a>2.7 梯度下降的线性回归 Gradient Descent For Linear Regression</h3><p>回到之前的房价问题：</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-e60f608c00cc0e93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+</blockquote>
+<p>我们将梯度下降法运用到线性回归模型上，得到梯度下降的公式：</p>
+<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-09d84795241f9b91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>此处为”批量梯度下降”，在梯度下降每一步中，在计算微分求导项时，我们需要进行求和运算</p>
+</blockquote>
+<h2 id="3-Linear-Algebra-Review-线性代数"><a href="#3-Linear-Algebra-Review-线性代数" class="headerlink" title="3 Linear Algebra Review 线性代数"></a>3 Linear Algebra Review 线性代数</h2><p>略略略</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/CS229/" rel="tag"># CS229</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/26/CS229-Week2-Linear-Regression-with-Multiple-Variable/" rel="prev" title="CS229 Week2 Linear Regression with Multiple Variable">
+                CS229 Week2 Linear Regression with Multiple Variable <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.ico"
+               alt="XuGB" />
+          <p class="site-author-name" itemprop="name">XuGB</p>
+           
+              <p class="site-description motion-element" itemprop="description">Notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=0&id=643466423&auto=0&height=32"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#吴恩达的Machine-Learning"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5434;&#x6069;&#x8FBE;&#x7684;Machine-Learning" class="headerlink" title="&#x5434;&#x6069;&#x8FBE;&#x7684;Machine Learning"></a>&#x5434;&#x6069;&#x8FBE;&#x7684;Machine Learning</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一周"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7B2C;&#x4E00;&#x5468;" class="headerlink" title="&#x7B2C;&#x4E00;&#x5468;"></a>&#x7B2C;&#x4E00;&#x5468;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-welcome"><span class="nav-number">2.1.1.</span> <span class="nav-text"><a href="#1-1-welcome" class="headerlink" title="1.1 welcome"></a>1.1 welcome</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-what-is-ML"><span class="nav-number">2.1.2.</span> <span class="nav-text"><a href="#1-2-what-is-ML" class="headerlink" title="1.2 what is  ML"></a>1.2 what is  ML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-监督学习Supervised-Learning"><span class="nav-number">2.1.3.</span> <span class="nav-text"><a href="#1-3-&#x76D1;&#x7763;&#x5B66;&#x4E60;Supervised-Learning" class="headerlink" title="1.3 &#x76D1;&#x7763;&#x5B66;&#x4E60;Supervised Learning"></a>1.3 &#x76D1;&#x7763;&#x5B66;&#x4E60;Supervised Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-无监督学习Unsupervised-Learning-聚类算法"><span class="nav-number">2.1.4.</span> <span class="nav-text"><a href="#1-4-&#x65E0;&#x76D1;&#x7763;&#x5B66;&#x4E60;Unsupervised-Learning-&#x805A;&#x7C7B;&#x7B97;&#x6CD5;" class="headerlink" title="1.4 &#x65E0;&#x76D1;&#x7763;&#x5B66;&#x4E60;Unsupervised Learning &#x805A;&#x7C7B;&#x7B97;&#x6CD5;"></a>1.4 &#x65E0;&#x76D1;&#x7763;&#x5B66;&#x4E60;Unsupervised Learning &#x805A;&#x7C7B;&#x7B97;&#x6CD5;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-单变量线性回归-Linear-Regression-with-One-Variable"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#2-&#x5355;&#x53D8;&#x91CF;&#x7EBF;&#x6027;&#x56DE;&#x5F52;-Linear-Regression-with-One-Variable" class="headerlink" title="2 &#x5355;&#x53D8;&#x91CF;&#x7EBF;&#x6027;&#x56DE;&#x5F52;(Linear Regression with One Variable)"></a>2 &#x5355;&#x53D8;&#x91CF;&#x7EBF;&#x6027;&#x56DE;&#x5F52;(Linear Regression with One Variable)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Model-Representation-模型表示"><span class="nav-number">2.2.1.</span> <span class="nav-text"><a href="#2-1-Model-Representation-&#x6A21;&#x578B;&#x8868;&#x793A;" class="headerlink" title="2.1 - Model Representation &#x6A21;&#x578B;&#x8868;&#x793A;"></a>2.1 - Model Representation &#x6A21;&#x578B;&#x8868;&#x793A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-代价函数"><span class="nav-number">2.2.2.</span> <span class="nav-text"><a href="#2-2-&#x4EE3;&#x4EF7;&#x51FD;&#x6570;" class="headerlink" title="2.2 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;"></a>2.2 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-代价函数的直观理解"><span class="nav-number">2.2.3.</span> <span class="nav-text"><a href="#2-3-&#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;" class="headerlink" title="2.3 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;"></a>2.3 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-代价函数的直观理解II"><span class="nav-number">2.2.4.</span> <span class="nav-text"><a href="#2-4-&#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;II" class="headerlink" title="2.4 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;II"></a>2.4 &#x4EE3;&#x4EF7;&#x51FD;&#x6570;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-梯度下降-Gradient-Descent"><span class="nav-number">2.2.5.</span> <span class="nav-text"><a href="#2-5-&#x68AF;&#x5EA6;&#x4E0B;&#x964D;-Gradient-Descent" class="headerlink" title="2.5 &#x68AF;&#x5EA6;&#x4E0B;&#x964D; Gradient Descent"></a>2.5 &#x68AF;&#x5EA6;&#x4E0B;&#x964D; Gradient Descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-梯度下降的直观理解"><span class="nav-number">2.2.6.</span> <span class="nav-text"><a href="#2-6-&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;" class="headerlink" title="2.6 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;"></a>2.6 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x76F4;&#x89C2;&#x7406;&#x89E3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-梯度下降的线性回归-Gradient-Descent-For-Linear-Regression"><span class="nav-number">2.2.7.</span> <span class="nav-text"><a href="#2-7-&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x7EBF;&#x6027;&#x56DE;&#x5F52;-Gradient-Descent-For-Linear-Regression" class="headerlink" title="2.7 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x7EBF;&#x6027;&#x56DE;&#x5F52; Gradient Descent For Linear Regression"></a>2.7 &#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x7684;&#x7EBF;&#x6027;&#x56DE;&#x5F52; Gradient Descent For Linear Regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Linear-Algebra-Review-线性代数"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#3-Linear-Algebra-Review-&#x7EBF;&#x6027;&#x4EE3;&#x6570;" class="headerlink" title="3 Linear Algebra Review &#x7EBF;&#x6027;&#x4EE3;&#x6570;"></a>3 Linear Algebra Review &#x7EBF;&#x6027;&#x4EE3;&#x6570;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuGB</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: window.location.pathname,
+                    owner: 'GBXU',
+                    repo: 'gbxu.github.io',
+                    oauth: {
+                        client_id: '181b263ac1753db99459',
+                        client_secret: '6336bf552f4a2a5cedfe493e12dddb85c8d83372',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

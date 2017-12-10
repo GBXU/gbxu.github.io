@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Life & CS" />
+  <meta name="keywords" content="Machine Learning," />
 
 
 
@@ -87,16 +87,20 @@
 
 
 
-<meta name="description" content="Notebook">
-<meta property="og:type" content="website">
-<meta property="og:title" content="XuGB&#39;s Blog">
-<meta property="og:url" content="http://gbxu.github.io/archives/2017/index.html">
+<meta name="description" content="卢晓春 模式识别引论第二章 统计决策方法 贝叶斯决策理论 先验概率=已知的类别的概率，如二分类$P(w_1)+P(w_2)=1$类条件概率密度函数：$P(x|w_1),P(x|w_2)…P(x|w_n)$后验概率：分类判决的依据$P(w_1|x)+P(w_2|x)=1$比如某地区的癌细胞概率，病人  不同阈值标准：  最小错误率贝叶斯决策$$P(w_i|x)=\frac{P(x|w_i)P(w_">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模式识别 第二章 统计决策方法 贝叶斯决策理论">
+<meta property="og:url" content="http://gbxu.github.io/2017/03/26/模式识别2/index.html">
 <meta property="og:site_name" content="XuGB&#39;s Blog">
-<meta property="og:description" content="Notebook">
+<meta property="og:description" content="卢晓春 模式识别引论第二章 统计决策方法 贝叶斯决策理论 先验概率=已知的类别的概率，如二分类$P(w_1)+P(w_2)=1$类条件概率密度函数：$P(x|w_1),P(x|w_2)…P(x|w_n)$后验概率：分类判决的依据$P(w_1|x)+P(w_2|x)=1$比如某地区的癌细胞概率，病人  不同阈值标准：  最小错误率贝叶斯决策$$P(w_i|x)=\frac{P(x|w_i)P(w_">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-5428d3f301e42a84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-06-11T13:52:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XuGB&#39;s Blog">
-<meta name="twitter:description" content="Notebook">
+<meta name="twitter:title" content="模式识别 第二章 统计决策方法 贝叶斯决策理论">
+<meta name="twitter:description" content="卢晓春 模式识别引论第二章 统计决策方法 贝叶斯决策理论 先验概率=已知的类别的概率，如二分类$P(w_1)+P(w_2)=1$类条件概率密度函数：$P(x|w_1),P(x|w_2)…P(x|w_n)$后验概率：分类判决的依据$P(w_1|x)+P(w_2|x)=1$比如某地区的癌细胞概率，病人  不同阈值标准：  最小错误率贝叶斯决策$$P(w_i|x)=\frac{P(x|w_i)P(w_">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-5428d3f301e42a84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -124,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://gbxu.github.io/archives/2017/"/>
+  <link rel="canonical" href="http://gbxu.github.io/2017/03/26/模式识别2/"/>
 
 
 
 
 
-  <title> 归档 | XuGB's Blog </title>
+  <title> 模式识别 第二章 统计决策方法 贝叶斯决策理论 | XuGB's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -155,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,254 +297,281 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 37 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/03/26/模式识别2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                模式识别 第二章 统计决策方法 贝叶斯决策理论
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-26T18:47:48+08:00">
+                2017-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-卢晓春-模式识别引论/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/卢晓春 模式识别引论</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <a id="more"></a>
+<h1 id="卢晓春-模式识别引论"><a href="#卢晓春-模式识别引论" class="headerlink" title="卢晓春 模式识别引论"></a>卢晓春 模式识别引论</h1><h2 id="第二章-统计决策方法-贝叶斯决策理论"><a href="#第二章-统计决策方法-贝叶斯决策理论" class="headerlink" title="第二章 统计决策方法 贝叶斯决策理论"></a>第二章 统计决策方法 贝叶斯决策理论</h2><blockquote>
+<p>先验概率=已知的类别的概率，如二分类$P(w_1)+P(w_2)=1$<br>类条件概率密度函数：$P(x|w_1),P(x|w_2)…P(x|w_n)$<br>后验概率：分类判决的依据$P(w_1|x)+P(w_2|x)=1$<br>比如某地区的癌细胞概率，病人</p>
+</blockquote>
+<p>不同阈值标准：</p>
+<ul>
+<li>最小错误率贝叶斯决策<br>$$P(w_i|x)=\frac{P(x|w_i)<em>P(w_i)}{P(x)}=\frac{P(x|w_i)P(w<em>i)}{\sum</em>{j=i}^{2}P(x|w_j)P(w_j)},i=1,2$$<br>即求后验概率更大的情况i=$argumax(P(w_i|x))$，又$P(w_i|x)$中分母相同，<br>即求i=$argumax(P(x|w_i)</em>P(w_i))$<br>整理成似然比形式：<br>$$\begin{split} P(x|w_1)<em>P(w_1)&amp;&gt;P(x|w_2)</em>P(w_2) \<br>l(x)=\frac{P(x|w_1)}{P(x|w_2)}&amp;&gt;\frac{P(w_2)}{P(w_1)}<br>\begin{cases}<br>true, &amp;\quad x \in w_1 \<br>false,&amp;\quad x \in w_2<br>\end{cases}<br>\end{split} $$<br>例题：<blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-5428d3f301e42a84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br>某地区正常细胞和异常细胞的先验概率为$P(w_1)=0.9,P(w_2)=0.1$<br>某人的细胞观察值x，根据类条件概率密度函数,$P(x|w_1)=0.2,P(x|w_2)=0.4$<br>因为$\frac{P(x|w_1)}{P(x|w_2)}&gt;\frac{P(w_2)}{P(w_1)}$，所以属于第一类，判定是正常细胞。<br><em>注：图中交叉部分，实际为绿可是判定为红，或则反之，都是错误的判定</em></p>
+</blockquote>
+</li>
+<li>最小风险贝叶斯决策<br>决策表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">决策</th>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">风险值</td>
+<td style="text-align:center">$\omega_1$</td>
+<td style="text-align:center">$\omega_2$</td>
+</tr>
+<tr>
+<td style="text-align:right">$$a_1$$</td>
+<td style="text-align:center">$$\lambda_{11}$$</td>
+<td style="text-align:center">$$\lambda_{12}$$</td>
+</tr>
+<tr>
+<td style="text-align:right">$$a_2$$</td>
+<td style="text-align:center">$$\lambda_{21}$$</td>
+<td style="text-align:center">$$\lambda_{22}$$</td>
+</tr>
+</tbody>
+</table>
+<p>将后验概率$P(w_i|x)$乘上风险<br>$$R(a<em>1|x)=\sum</em>{j=1}^2\lambda_{1j}P(w_j|x) $$<br>$$R(a<em>2|x)=\sum</em>{j=1}^2\lambda_{2j}P(w_j|x) $$<br>比较，R较小的那个为最终决策。</p>
+<p>例题</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">决策</th>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">类别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">风险值</td>
+<td style="text-align:center">$\omega_1$</td>
+<td style="text-align:center">$\omega_2$</td>
+</tr>
+<tr>
+<td style="text-align:center">$a_1$</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">$a_2$</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<p>某地区正常细胞和异常细胞的先验概率为<br>$$P(w_1)=0.9,P(w_2)=0.1$$<br>某人的细胞观察值x，根据类条件概率密度函数,<br>$$P(x|w_1)=0.2,P(x|w_2)=0.4$$<br>因为<br>$$R(a<em>1|x)=\sum</em>{j=1}^2 \lambda_{1j}P(w<em>j|x)=0+\lambda</em>{12}P(w_2|x)=1.092$$，<br>$$R(a<em>2|x)=\sum</em>{j=1}^2 \lambda_{1j}P(w<em>j|x)=\lambda</em>{21}P(w_1|x)+0=0.818$$<br>所以为了风险最小，判定为第二类</p>
+</blockquote>
+<ul>
+<li>Neyman-Person决策 奈曼皮尔逊：限定一类错误率为常数而使另一类错误率最小的决策规则。<ul>
+<li>第一类错误率$$P<em>1(e)=\int</em>{R_2}P(x|w_1)dx$$</li>
+<li>第二类错误率$$P<em>2(e)=\int</em>{R_1}P(x|w_2)dx$$</li>
+<li>整个特征空间$R=R_1+R_2$<br>【Lagrange乘子法】：<br>$$mini \gamma = P_1(e)+\lambda(P_2(e)-\epsilon_0)$$<br>又错误=1-正确：<br>$$P<em>1(e)=\int</em>{R_2}P(x|w<em>1)dx=1-\int</em>{R_1}P(x|w<em>1)dx$$<br>代入：<br>$$\begin{split}<br>\gamma &amp;= 1-\int</em>{R_1}P(x|w_1)dx+\lambda P_2(e)-\lambda \epsilon_0 \<br>&amp;=(1-\lambda \epsilon<em>0)+\lambda \int</em>{R_1}P(x|w<em>2)dx-\int</em>{R_1}P(x|w_1)dx \<br>&amp;=(1-\lambda \epsilon<em>0)+ \int</em>{R_1}[\lambda P(x|w_2)-P(x|w_1)]dx \<br>\end{split}$$<br>分别对$\lambda$和分界面t求导，得到<br>$$\lambda=\frac{P(x|w_1)}{P(x|w<em>2)}$$<br>且<br>$$\int</em>{R_1}P(x|w_2)dx=\epsilon_0$$<br>而在分界面处，可以看到$$[\lambda P(x|w_2)-P(x|w_1)]<0$$才能使得值尽量小 所以="" $$="" l(x)="\frac{P(x|w_1)}{P(x|w_2)}">\lambda ,<br>\begin{cases}<br>true, &amp;\quad x \in w_1 \<br>false,&amp;\quad x \in w_2<br>\end{cases}$$</0$$才能使得值尽量小></li>
+</ul>
+</li>
+<li>最小最大决策：保守的，在最差情况下有好的结果。</li>
+<li>另有ROC曲线见吴恩达《机器学习》课程</li>
+</ul>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/07/31/转：你想戴一顶什么样的博士帽/" itemprop="url">
-              
-                <span itemprop="name">转：你想戴一顶什么样的博士帽 李开复</span>
-              
-            </a>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
         
-      </h1>
+      
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-31T21:06:42+08:00"
-              content="2017-07-31" >
-          07-31
-        </time>
-      </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/CS229-Week11-OCR/" rel="next" title="CS229 Week11 OCR">
+                <i class="fa fa-chevron-left"></i> CS229 Week11 OCR
+              </a>
+            
+          </div>
 
-    </header>
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/26/模式识别3/" rel="prev" title="模式识别 第三章 概率密度函数的估计">
+                模式识别 第三章 概率密度函数的估计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L11-L12/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L11-L12 观念抽取及深度学习的介绍</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:57:16+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L10/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L10</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:54:52+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L9/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L9 SVM 决策树</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:48:56+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L8/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L8 分类</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:47:07+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/26/网络数据挖掘-L7/" itemprop="url">
-              
-                <span itemprop="name">网络数据挖掘-L7 聚类的应用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T11:43:29+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2017/page/6/">6</a><a class="extend next" rel="next" href="/archives/2017/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -548,6 +579,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
 
         </div>
         
@@ -567,8 +606,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/logo.ico"
@@ -632,6 +680,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卢晓春-模式识别引论"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5362;&#x6653;&#x6625;-&#x6A21;&#x5F0F;&#x8BC6;&#x522B;&#x5F15;&#x8BBA;" class="headerlink" title="&#x5362;&#x6653;&#x6625; &#x6A21;&#x5F0F;&#x8BC6;&#x522B;&#x5F15;&#x8BBA;"></a>&#x5362;&#x6653;&#x6625; &#x6A21;&#x5F0F;&#x8BC6;&#x522B;&#x5F15;&#x8BBA;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-统计决策方法-贝叶斯决策理论"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x7B2C;&#x4E8C;&#x7AE0;-&#x7EDF;&#x8BA1;&#x51B3;&#x7B56;&#x65B9;&#x6CD5;-&#x8D1D;&#x53F6;&#x65AF;&#x51B3;&#x7B56;&#x7406;&#x8BBA;" class="headerlink" title="&#x7B2C;&#x4E8C;&#x7AE0; &#x7EDF;&#x8BA1;&#x51B3;&#x7B56;&#x65B9;&#x6CD5; &#x8D1D;&#x53F6;&#x65AF;&#x51B3;&#x7B56;&#x7406;&#x8BBA;"></a>&#x7B2C;&#x4E8C;&#x7AE0; &#x7EDF;&#x8BA1;&#x51B3;&#x7B56;&#x65B9;&#x6CD5; &#x8D1D;&#x53F6;&#x65AF;&#x51B3;&#x7B56;&#x7406;&#x8BBA;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -766,11 +830,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   

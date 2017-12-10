@@ -1,0 +1,1061 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CS224d,NLP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Advanced word vector representations: language models, softmax, single layer networks  $$J(\theta)=\frac{1}{T}\sum{t=1}^{T}\sum{-c&amp;lt;=j&amp;lt;=c,j\neq0}logP(w_{t+j}|w_t)$$$$P(w_0|wt)=\frac{e^{v{w0}^{‘T">
+<meta name="keywords" content="CS224d,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS224d L3 高级的词向量表示">
+<meta property="og:url" content="http://gbxu.github.io/2017/03/27/CS224d-L3/index.html">
+<meta property="og:site_name" content="XuGB&#39;s Blog">
+<meta property="og:description" content="Advanced word vector representations: language models, softmax, single layer networks  $$J(\theta)=\frac{1}{T}\sum{t=1}^{T}\sum{-c&amp;lt;=j&amp;lt;=c,j\neq0}logP(w_{t+j}|w_t)$$$$P(w_0|wt)=\frac{e^{v{w0}^{‘T">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-92c74b252d29695b.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-e46c6560083ae7ba.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d879b0d8a7090274.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-203531e358da4e2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-eeb3cdfff6b030b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-b643fe547dc56f7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-04-04T12:07:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS224d L3 高级的词向量表示">
+<meta name="twitter:description" content="Advanced word vector representations: language models, softmax, single layer networks  $$J(\theta)=\frac{1}{T}\sum{t=1}^{T}\sum{-c&amp;lt;=j&amp;lt;=c,j\neq0}logP(w_{t+j}|w_t)$$$$P(w_0|wt)=\frac{e^{v{w0}^{‘T">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-92c74b252d29695b.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gbxu.github.io/2017/03/27/CS224d-L3/"/>
+
+
+
+
+
+  <title> CS224d L3 高级的词向量表示 | XuGB's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XuGB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/03/27/CS224d-L3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CS224d L3 高级的词向量表示
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T19:43:56+08:00">
+                2017-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP-CS224d/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP/CS224d</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>Advanced word vector representations: language models, softmax, single layer networks</p>
+<blockquote>
+<p>$$J(\theta)=\frac{1}{T}\sum<em>{t=1}^{T}\sum</em>{-c&lt;=j&lt;=c,j\neq0}logP(w_{t+j}|w_t)$$<br>$$P(w_0|w<em>t)=\frac{e^{v</em>{w<em>0}^{‘T}v</em>{w<em>i}}}{\sum</em>{w=1}^{W}e^{v<em>{w}^{‘T}v</em>{w_i}}}$$</p>
+</blockquote>
+<h2 id="BGD-SGD-MBGD"><a href="#BGD-SGD-MBGD" class="headerlink" title="BGD/SGD/MBGD"></a>BGD/SGD/MBGD</h2><h3 id="BGD-批量梯度下降-Batch-Gradient-Descent"><a href="#BGD-批量梯度下降-Batch-Gradient-Descent" class="headerlink" title="BGD 批量梯度下降(Batch Gradient Descent)"></a>BGD 批量梯度下降(Batch Gradient Descent)</h3><p>更新每一参数时都使用所有的样本来进行更新</p>
+<ul>
+<li>优点：全局最优解；</li>
+<li>缺点：当样本数目很多时，训练过程会很慢。<br>&gt;<br>$\theta^{new}=\theta^{old}-\alpha\frac{\partial}{\partial\theta^{old}}J(\theta)$<br><img src="//upload-images.jianshu.io/upload_images/2812342-92c74b252d29695b.png" alt="image.png"></li>
+</ul>
+<h3 id="SGD-随机梯度下降-Stochastic-Gradient-Descent"><a href="#SGD-随机梯度下降-Stochastic-Gradient-Descent" class="headerlink" title="SGD 随机梯度下降(Stochastic Gradient Descent)"></a>SGD 随机梯度下降(Stochastic Gradient Descent)</h3><p>SGD是通过每个样本来迭代更新一次，如果样本量很大的情况（例如几十万），那么可能只用其中几万条或者几千条的样本，就已经将theta迭代到最优解了.</p>
+<p>对比上面的批量梯度下降，迭代一次需要用到十几万训练样本，一次迭代不可能最优，如果迭代10次的话就需要遍历训练样本10次。</p>
+<p>但是，SGD伴随的一个问题是噪音较BGD要多，使得SGD并不是每次迭代都向着整体最优化方向。</p>
+<ul>
+<li>优点：训练速度快；</li>
+<li>缺点：准确度下降，并不是全局最优。 </li>
+</ul>
+<blockquote>
+<p>$\theta^{new}=\theta^{old}-\alpha\frac{\partial}{\partial\theta^{old}}J_t(\theta)$<br><img src="//upload-images.jianshu.io/upload_images/2812342-e46c6560083ae7ba.png" alt="image.png"></p>
+</blockquote>
+<h3 id="小批量梯度下降法MBGD-Mini-batch-Gradient-Descent"><a href="#小批量梯度下降法MBGD-Mini-batch-Gradient-Descent" class="headerlink" title="小批量梯度下降法MBGD(Mini-batch Gradient Descent)"></a>小批量梯度下降法MBGD(Mini-batch Gradient Descent)</h3><p>BGD和SGD的折衷</p>
+<h2 id="CBOW-Skip-gram"><a href="#CBOW-Skip-gram" class="headerlink" title="CBOW/Skip-gram"></a>CBOW/Skip-gram</h2><p><img src="http://upload-images.jianshu.io/upload_images/2812342-d879b0d8a7090274.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h3 id="Continuous-Bag-of-Words-Model-（CBOW）"><a href="#Continuous-Bag-of-Words-Model-（CBOW）" class="headerlink" title="Continuous Bag-of-Words Model （CBOW）"></a>Continuous Bag-of-Words Model （CBOW）</h3><p><img src="http://upload-images.jianshu.io/upload_images/2812342-203531e358da4e2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ol>
+<li>输入单词矩阵V，有one-hot的X标明。这样$v_i=VX_i$</li>
+<li>$v<em>{avg}=\frac{v</em>{c-m}+v<em>{c-m+1}+…+v</em>{c+m}}{2m}$求出输入层的平均值</li>
+<li>Generate a score vector $z=Uv_{avg}$，和output和input average相乘</li>
+<li>然后用softmax方法，$y<em>{‘}=softmax(z)$，得到的$y</em>{‘}$也是one hot的向量</li>
+</ol>
+<ul>
+<li><p>Loss function：<a href="http://blog.csdn.net/rtygbwwwerr/article/details/50778098" target="_blank" rel="noopener">cross entropy交叉熵</a>,交叉熵简单地说，就是一个事件发生的概率越大，则它所携带的信息量就越小。<br>所以有$H(y<em>{‘},y)=-\sum </em>{j=1}^{|V|}y_jlog(y<em>j^{‘})$，又因为y为one hot，所以$H(y</em>{‘},y)$化简为$H(y_{‘},y)=-y_jlog(y_j^{‘})$。</p>
+<ul>
+<li>即得出的结果符合上下文的$H ( ŷ, y ) =<br>− 1 log ( 1 ) = 0$，</li>
+<li>而得出的结果不符合上下文的$H ( ŷ, y ) = − 1 log ( 0.01 ) ≈ 4.605$</li>
+</ul>
+</li>
+<li>而对于cost function：由softmax可得<br>如果是对于每一个测试样本，都有<br>$$minimize J=-logP(w<em>{c}|w</em>{c-m}..w<em>{c-1}w</em>{c+1}..w_{c+m})\<br>=-logP(u<em>c|v^{‘})\<br>=-log\frac{e^{u</em>{c}^{T}v^{‘}}}{\sum<em>{j=1}^{|V|}e^{u</em>{j}^{T}v^{‘}}}\<br>=-u<em>{c}^{T}v^{‘}+log\sum</em>{j=1}^{|V|}e^{u_{j}^{T}v^{‘}}$$</li>
+<li>之后用梯度去更新相关词向量$u_c$和$v_j$</li>
+</ul>
+<h3 id="Continuous-Skip-gram-Model-Skip-gram"><a href="#Continuous-Skip-gram-Model-Skip-gram" class="headerlink" title="Continuous Skip-gram Model (Skip-gram)"></a>Continuous Skip-gram Model (Skip-gram)</h3><p>该模型是用center word预测the surrounding words。<br><img src="http://upload-images.jianshu.io/upload_images/2812342-eeb3cdfff6b030b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ol>
+<li>输入中心词x为one hot向量</li>
+<li>和CBOW一样，单词$v_c=VX$</li>
+<li>因为只有一个，求平均是$v_{avg}=v_c$</li>
+<li>利用$u=Uv<em>c$生成2m个单词$u</em>{c-m}，u<em>{c-m+1}..u</em>{c+m}$的score</li>
+<li>Turn each of the scores into probabilities, y = softmax (u)</li>
+<li>$y<em>{c-m}，y</em>{c-m+1}..y<em>{c+m}$为真实y，而$y^{‘}</em>{c-m}，y^{‘}<em>{c-m+1}..y^{‘}</em>{c+m}$为求出来的<br><img src="http://upload-images.jianshu.io/upload_images/2812342-b643fe547dc56f7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></li>
+</ol>
+<h3 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h3><h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><ul>
+<li><a href="http://www.52nlp.cn/%E6%96%AF%E5%9D%A6%E7%A6%8F%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E9%AB%98%E7%BA%A7%E7%9A%84%E8%AF%8D%E5%90%91%E9%87%8F%E8%A1%A8%E7%A4%BA" target="_blank" rel="noopener">第三讲：高级的词向量PPT中文版</a></li>
+<li>CBOW/Skip-gram/nagative sampling见<a href="http://cs224d.stanford.edu/lecture_notes/notes1.pdf" target="_blank" rel="noopener">CS224d-L1/L2/L3前部分note</a></li>
+<li><a href="http://blog.csdn.net/han_xiaoyang/article/details/51648483" target="_blank" rel="noopener">深度学习与自然语言处理(2)_斯坦福cs224d Lecture 2笔记中文版 </a></li>
+<li>softmax算法见<a href="http://ufldl.stanford.edu/wiki/index.php/Softmax%E5%9B%9E%E5%BD%92" target="_blank" rel="noopener">UFLDL教程的Softmax回归</a></li>
+<li>关于The skip-gram model and negative sampling，详细可见论文<a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener">Distributed Representations of Words and Phrases and their Compositionality</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CS224d/" rel="tag"># CS224d</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/CS224d-L2-word2vec/" rel="next" title="CS224d L2 word2vec">
+                <i class="fa fa-chevron-left"></i> CS224d L2 word2vec
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/28/网络数据挖掘-L1-L3-Indexer-Search/" rel="prev" title="网络数据挖掘 L1-L3 Indexer&Search">
+                网络数据挖掘 L1-L3 Indexer&Search <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.ico"
+               alt="XuGB" />
+          <p class="site-author-name" itemprop="name">XuGB</p>
+           
+              <p class="site-description motion-element" itemprop="description">Notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=0&id=643466423&auto=0&height=32"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BGD-SGD-MBGD"><span class="nav-number">1.</span> <span class="nav-text"><a href="#BGD-SGD-MBGD" class="headerlink" title="BGD/SGD/MBGD"></a>BGD/SGD/MBGD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BGD-批量梯度下降-Batch-Gradient-Descent"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#BGD-&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;-Batch-Gradient-Descent" class="headerlink" title="BGD &#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;(Batch Gradient Descent)"></a>BGD &#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;(Batch Gradient Descent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SGD-随机梯度下降-Stochastic-Gradient-Descent"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#SGD-&#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;-Stochastic-Gradient-Descent" class="headerlink" title="SGD &#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;(Stochastic Gradient Descent)"></a>SGD &#x968F;&#x673A;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;(Stochastic Gradient Descent)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小批量梯度下降法MBGD-Mini-batch-Gradient-Descent"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;MBGD-Mini-batch-Gradient-Descent" class="headerlink" title="&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;MBGD(Mini-batch Gradient Descent)"></a>&#x5C0F;&#x6279;&#x91CF;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;MBGD(Mini-batch Gradient Descent)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CBOW-Skip-gram"><span class="nav-number">2.</span> <span class="nav-text"><a href="#CBOW-Skip-gram" class="headerlink" title="CBOW/Skip-gram"></a>CBOW/Skip-gram</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Continuous-Bag-of-Words-Model-（CBOW）"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#Continuous-Bag-of-Words-Model-&#xFF08;CBOW&#xFF09;" class="headerlink" title="Continuous Bag-of-Words Model &#xFF08;CBOW&#xFF09;"></a>Continuous Bag-of-Words Model &#xFF08;CBOW&#xFF09;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Continuous-Skip-gram-Model-Skip-gram"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#Continuous-Skip-gram-Model-Skip-gram" class="headerlink" title="Continuous Skip-gram Model (Skip-gram)"></a>Continuous Skip-gram Model (Skip-gram)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuGB</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: window.location.pathname,
+                    owner: 'GBXU',
+                    repo: 'gbxu.github.io',
+                    oauth: {
+                        client_id: '181b263ac1753db99459',
+                        client_secret: '6336bf552f4a2a5cedfe493e12dddb85c8d83372',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>

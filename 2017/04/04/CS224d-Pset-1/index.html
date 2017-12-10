@@ -1,0 +1,1043 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CS224d,NLP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="根据题意，   $h=sigmoid(xw_1+b_1)$ $\widehat y=softmax(hw_2+b_2)$ m维度x输入以如下的矩阵形式，每行为一个样例  $$\begin{bmatrix}x_{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\.\.\x{D1}\ x{D2}\ …\ x{D_m}">
+<meta name="keywords" content="CS224d,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS224d Pset 1">
+<meta property="og:url" content="http://gbxu.github.io/2017/04/04/CS224d-Pset-1/index.html">
+<meta property="og:site_name" content="XuGB&#39;s Blog">
+<meta property="og:description" content="根据题意，   $h=sigmoid(xw_1+b_1)$ $\widehat y=softmax(hw_2+b_2)$ m维度x输入以如下的矩阵形式，每行为一个样例  $$\begin{bmatrix}x_{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\.\.\x{D1}\ x{D2}\ …\ x{D_m}">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d2e4d20879071fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2812342-d2e4d20879071fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-04-12T10:55:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS224d Pset 1">
+<meta name="twitter:description" content="根据题意，   $h=sigmoid(xw_1+b_1)$ $\widehat y=softmax(hw_2+b_2)$ m维度x输入以如下的矩阵形式，每行为一个样例  $$\begin{bmatrix}x_{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\x{D1}\ x{D2}\ …\ x{Dm}\.\.\x{D1}\ x{D2}\ …\ x{D_m}">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2812342-d2e4d20879071fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gbxu.github.io/2017/04/04/CS224d-Pset-1/"/>
+
+
+
+
+
+  <title> CS224d Pset 1 | XuGB's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XuGB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gbxu.github.io/2017/04/04/CS224d-Pset-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XuGB">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XuGB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CS224d Pset 1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-04T20:02:21+08:00">
+                2017-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP-CS224d/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP/CS224d</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/2812342-d2e4d20879071fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>根据题意，</p>
+<blockquote>
+<ul>
+<li>$h=sigmoid(xw_1+b_1)$</li>
+<li>$\widehat y=softmax(hw_2+b_2)$</li>
+<li>m维度x输入以如下的矩阵形式，每行为一个样例</li>
+</ul>
+<p>$$\begin{bmatrix}<br>x_{D<em>1}\ x</em>{D<em>2}\ …\ x</em>{D<em>m}\<br>x</em>{D<em>1}\ x</em>{D<em>2}\ …\ x</em>{D<em>m}\<br>x</em>{D<em>1}\ x</em>{D<em>2}\ …\ x</em>{D<em>m}\<br>.\<br>.\<br>x</em>{D<em>1}\ x</em>{D<em>2}\ …\ x</em>{D_m}\<br>\end{bmatrix}<br>$$</p>
+<ul>
+<li>所以根据上述网络图<br>加入有样例数N，隐藏层$D_h=h$，输出层y有$D_y=n$维<br>输入X矩阵 N<em>m<br>W1矩阵m</em>h<br>W2矩阵h<em>n<br>最终得到N</em>n的矩阵输出</li>
+</ul>
+</blockquote>
+<h2 id="Softmax-10-points"><a href="#Softmax-10-points" class="headerlink" title="Softmax(10 points)"></a>Softmax(10 points)</h2><h3 id="a-求证softmax输入常数c不影响结果。"><a href="#a-求证softmax输入常数c不影响结果。" class="headerlink" title="(a)求证softmax输入常数c不影响结果。"></a>(a)求证softmax输入常数c不影响结果。</h3><p>$$(softmax ( \mathbf{x} + c  ))_i = \frac{\exp (\mathbf{x}<em>i + c ) }{\sum</em>{j=1}^{dim( \mathbf{x})}{\exp(\mathbf{x}_j+c )}} = \frac{\exp(c )\exp ( x<em>i)}{\exp ( c )\sum</em>{j=1}^{dim(x )}\exp( x_j)} = \frac{\exp ( x<em>i)}{\sum</em>{j=1}^{dim(x )}\exp( x_j)} = ( softmax ( \mathbf{x}) )_i$$</p>
+<h3 id="b-实现softmax。见Github"><a href="#b-实现softmax。见Github" class="headerlink" title="(b)实现softmax。见Github"></a>(b)实现softmax。见Github</h3><h2 id="Neural-Network-Basics-30-points"><a href="#Neural-Network-Basics-30-points" class="headerlink" title="Neural Network Basics (30 points)"></a>Neural Network Basics (30 points)</h2><h3 id="a-推导sigmoid函数的导数。"><a href="#a-推导sigmoid函数的导数。" class="headerlink" title="(a)推导sigmoid函数的导数。"></a>(a)推导sigmoid函数的导数。</h3><p>$$σ′(x)=σ(x)(1−σ(x))$$</p>
+<h3 id="b-交叉熵的导数"><a href="#b-交叉熵的导数" class="headerlink" title="(b)交叉熵的导数"></a>(b)交叉熵的导数</h3><p>首先，相比方差代价函数，交叉熵代价函数用于sigmoid会使得梯度更新更明显。<br><strong>softmax:</strong><br>$$softmax(x_i)=\frac{e^{x_i}}{\sum_k^m e^{x_k}}$$<br><strong>softmax求导:</strong><br>当$j = i$：<br>$$\frac{\partial S_j}{\partial x_i}<br>=\frac{\partial }{\partial x_i}(\frac{e^{x_j}}{\sum_k^m e^{x_k}})\<br>=\frac{\partial }{\partial x_i}(\frac{e^{x_j}}{e^{x_1}+e^{x_2}…+e^{x_k}})\<br>=\frac{e^{x_i}<em>({e^{x_1}+e^{x_2}…+e^{x_k}})-e^{x_i}</em>e^{x_i}}{(e^{x_1}+e^{x_2}…+e^{x_k})^2}\<br>=S_i-S_i^2\<br>=S_i(1-S_i)<br>$$<br>当$j \neq i$：<br>$$\frac{\partial S_j}{\partial x_i}=\frac{\partial }{\partial x_i}(\frac{e^{x_i}}{\sum_k^m e^{x_k}})\<br>=\frac{\partial }{\partial x_i}(\frac{e^{x_j}}{e^{x_1}+e^{x_2}…+e^{x_k}})\<br>=\frac{0<em>({e^{x_1}+e^{x_2}…+e^{x_k}})-e^{x_j}</em>e^{x_i}}{(e^{x_1}+e^{x_2}…+e^{x_k})^2}\<br>=-S_jS_i\<br>$$</p>
+<p>所以<br>$$<br>\frac{\partial S_j}{\partial x_i} =<br>\begin{cases}<br>S_i(1 – S_i),&amp;\quad i = j \<br>-S_i S_j,&amp;\quad i \neq j<br>\end{cases}$$</p>
+<p><a href="https://en.wikipedia.org/wiki/Cross_entropy" target="_blank" rel="noopener"><strong>CE(Cross-entropy)</strong></a>:<br>$$CE(y,\widehat y)=-\sum_k y_k log({\widehat y_k})$$<br>$$其中 \widehat y_k = sigmoid(x_k)$$<br>求导：<br>$$\begin{split}<br>\frac{\partial CE(y,\widehat y)}{\partial x_i}<br>&amp;=-\sum_k y_k\frac{\partial \log \widehat  y_k}{\partial x_i} \<br>&amp;=-\sum_ky_k\frac{1}{\widehat y_k}\frac{\partial \widehat y_k}{\partial x_i} \<br>\end{split} $$<br>$$其中<br>\sum_ky_k\frac{1}{\widehat y_k}\frac{\partial \widehat y_k}{\partial x_i} =<br>\begin{cases}<br>y_i(1-\widehat y<em>i),&amp;\quad k = i \<br>\sum</em>{k\neq i}y_k\frac{1}{\widehat y_k}({-\widehat y_k \widehat y_i}) ,&amp;\quad k \neq i<br>\end{cases}$$</p>
+<p>$$\begin{split}<br>所以带入&amp;=-y_i(1-\widehat y<em>i)+\sum</em>{k\neq i}y_k({\widehat y_i}) \<br>&amp;=-y_i+{y_i \widehat y<em>i+\sum</em>{k\neq i}y_k({\widehat y_i})} \ &amp;={\widehat y_i\left(\sum_ky_k\right)}-y_i \<br>&amp;=\widehat y_i-y_i<br>\end{split} $$<br>其中因为有onehot，$\sum_ky_k=1,y<em>i=1,y</em>{i \neq k}=0$</p>
+<h3 id="c-推导单隐层神经网络的梯度"><a href="#c-推导单隐层神经网络的梯度" class="headerlink" title="(c)推导单隐层神经网络的梯度"></a>(c)推导单隐层神经网络的梯度</h3><p><img src="http://upload-images.jianshu.io/upload_images/2812342-d2e4d20879071fd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>根据题意，<br>$h=sigmoid(xw_1+b_1)$<br>$\widehat y=softmax(hw_2+b_2)$<br>令：<br>$z_1=xw_1+b_1$<br>$z_2=hw_2+b_2$</p>
+<ul>
+<li>该网络cost function的导数<br>$$\begin{split}<br>\frac{\partial CE}{\partial x}<br>&amp;= \frac{\partial CE}{\partial z_2}<em>\frac{\partial z_2}{\partial h}</em>\frac{\partial h}{\partial z_1}<em>\frac{\partial z_1}{\partial x}\<br>&amp;= (\widehat y-y)</em>(w_2^T)<em>(sigmoid^{‘}(z_1))</em>(w_1^T)\<br>&amp;= (\widehat y-y)<em>(w_2^T)</em>(sigmoid(z_1)(1−sigmoid(z_1)))<em>(w_1^T)\<br>&amp;= (\widehat y-y)</em>(w_2^T)<em>(sigmoid(xw_1+b_1)(1−sigmoid(xw_1+b_1)))</em>(w_1^T)<br>\end{split} $$</li>
+</ul>
+<h3 id="d-神经网络的参数数量计算"><a href="#d-神经网络的参数数量计算" class="headerlink" title="(d)神经网络的参数数量计算"></a>(d)神经网络的参数数量计算</h3><p>输入$D_x=m$，输出$D_y=n$<br>再加上h个$b_1和D_y个b_2$<br>共有参数$$(D_x+1)<em>h+(h+1)</em>D_y$$</p>
+<h3 id="e-sigmoid的激活函数和梯度的代码"><a href="#e-sigmoid的激活函数和梯度的代码" class="headerlink" title="(e)sigmoid的激活函数和梯度的代码"></a>(e)sigmoid的激活函数和梯度的代码</h3><p>完成q2_sigmoid.py</p>
+<h3 id="f-梯度检查代码"><a href="#f-梯度检查代码" class="headerlink" title="(f)梯度检查代码"></a>(f)梯度检查代码</h3><p>完成q2_gradcheck.py</p>
+<h3 id="g-神经网络代码"><a href="#g-神经网络代码" class="headerlink" title="(g)神经网络代码"></a>(g)神经网络代码</h3><p>完成q2 neural.py</p>
+<h2 id="word2vec-40-points-5-bonus"><a href="#word2vec-40-points-5-bonus" class="headerlink" title="word2vec(40 points + 5 bonus)"></a>word2vec(40 points + 5 bonus)</h2><h3 id="a"><a href="#a" class="headerlink" title="(a)"></a>(a)</h3><p>待</p>
+<h3 id="b"><a href="#b" class="headerlink" title="(b)"></a>(b)</h3><p>待</p>
+<h3 id="c"><a href="#c" class="headerlink" title="(c)"></a>(c)</h3><p>待</p>
+<h3 id="d"><a href="#d" class="headerlink" title="(d)"></a>(d)</h3><p>待</p>
+<h3 id="e"><a href="#e" class="headerlink" title="(e)"></a>(e)</h3><p>q3_word2vec.py</p>
+<h3 id="f"><a href="#f" class="headerlink" title="(f)"></a>(f)</h3><p>q3_sgd.py</p>
+<h3 id="g-测试运行"><a href="#g-测试运行" class="headerlink" title="(g)测试运行"></a>(g)测试运行</h3><p>python q3 run.py</p>
+<h3 id="h"><a href="#h" class="headerlink" title="(h)"></a>(h)</h3><p>在q3_word2vec.py中实现CBOW</p>
+<h2 id="情感分析"><a href="#情感分析" class="headerlink" title="情感分析"></a>情感分析</h2><h3 id="a-1"><a href="#a-1" class="headerlink" title="(a)"></a>(a)</h3><p>q4_softmaxreg.py</p>
+<h3 id="b-1"><a href="#b-1" class="headerlink" title="(b)"></a>(b)</h3><p>解释当分类语料少于三句时为什么要引入正则化（实际上在大多数机器学习任务都这样）</p>
+<h3 id="c-1"><a href="#c-1" class="headerlink" title="(c)"></a>(c)</h3><p>q4 sentiment.py</p>
+<h3 id="d-1"><a href="#d-1" class="headerlink" title="(d)"></a>(d)</h3><p>绘图</p>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p><a href="http://cs224d.stanford.edu/assignment1/index.html" target="_blank" rel="noopener">Pset1 tutorial</a><br><a href="http://cs224d.stanford.edu/assignment1/assignment1.pdf" target="_blank" rel="noopener">Pset1 assignment1</a><br><a href="http://cs224d.stanford.edu/assignment1/assignment1_sol.zip" target="_blank" rel="noopener">Pset1 solutions Code</a><br><a href="http://cs224d.stanford.edu/assignment1/assignment1_soln" target="_blank" rel="noopener">Pset1 solutions</a><br><a href="http://blog.csdn.net/han_xiaoyang/article/details/51760923" target="_blank" rel="noopener">斯坦福cs224d 大作业测验1与解答 </a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line"><span class="comment">## 实验说明axis是tuple作用是对某维度的投影，max则是和投影平行最大的面</span></span><br><span class="line"><span class="comment">## 二维数组 0 对x的投影 最大行； 1对y投影最大列</span></span><br><span class="line"><span class="comment">## keepdims值为True则是保持维度</span></span><br><span class="line">    y = np.array([[<span class="number">1</span>,<span class="number">2</span>],</span><br><span class="line">                   [<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line">    <span class="comment">## print len(x.shape)</span></span><br><span class="line">    <span class="keyword">print</span> np.max(y,axis=<span class="number">0</span>,keepdims=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">print</span> np.max(y,axis=<span class="number">0</span>,keepdims=<span class="keyword">False</span>)</span><br><span class="line">    <span class="keyword">print</span> np.max(y,axis=<span class="number">1</span>,keepdims=<span class="keyword">True</span>)</span><br><span class="line">    </span><br><span class="line">    x = np.array([[[<span class="number">1</span>,<span class="number">2</span>],</span><br><span class="line">                   [<span class="number">3</span>,<span class="number">4</span>]],</span><br><span class="line">                  [[<span class="number">5</span>,<span class="number">6</span>],</span><br><span class="line">                   [<span class="number">7</span>,<span class="number">8</span>]]])</span><br><span class="line">    <span class="keyword">print</span> np.max(x,axis=(<span class="number">0</span>,<span class="number">1</span>),keepdims=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XuGB WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CS224d/" rel="tag"># CS224d</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/03/Java-IO系统笔记/" rel="next" title="Java-IO系统笔记">
+                <i class="fa fa-chevron-left"></i> Java-IO系统笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/12/网络数据挖掘-L4L5/" rel="prev" title="网络数据挖掘 L4L5 网页排序">
+                网络数据挖掘 L4L5 网页排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.ico"
+               alt="XuGB" />
+          <p class="site-author-name" itemprop="name">XuGB</p>
+           
+              <p class="site-description motion-element" itemprop="description">Notebook</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=298 height=52 src="//music.163.com/outchain/player?type=0&id=643466423&auto=0&height=32"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-10-points"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Softmax-10-points" class="headerlink" title="Softmax(10 points)"></a>Softmax(10 points)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-求证softmax输入常数c不影响结果。"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#a-&#x6C42;&#x8BC1;softmax&#x8F93;&#x5165;&#x5E38;&#x6570;c&#x4E0D;&#x5F71;&#x54CD;&#x7ED3;&#x679C;&#x3002;" class="headerlink" title="(a)&#x6C42;&#x8BC1;softmax&#x8F93;&#x5165;&#x5E38;&#x6570;c&#x4E0D;&#x5F71;&#x54CD;&#x7ED3;&#x679C;&#x3002;"></a>(a)&#x6C42;&#x8BC1;softmax&#x8F93;&#x5165;&#x5E38;&#x6570;c&#x4E0D;&#x5F71;&#x54CD;&#x7ED3;&#x679C;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-实现softmax。见Github"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#b-&#x5B9E;&#x73B0;softmax&#x3002;&#x89C1;Github" class="headerlink" title="(b)&#x5B9E;&#x73B0;softmax&#x3002;&#x89C1;Github"></a>(b)&#x5B9E;&#x73B0;softmax&#x3002;&#x89C1;Github</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neural-Network-Basics-30-points"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Neural-Network-Basics-30-points" class="headerlink" title="Neural Network Basics (30 points)"></a>Neural Network Basics (30 points)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-推导sigmoid函数的导数。"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#a-&#x63A8;&#x5BFC;sigmoid&#x51FD;&#x6570;&#x7684;&#x5BFC;&#x6570;&#x3002;" class="headerlink" title="(a)&#x63A8;&#x5BFC;sigmoid&#x51FD;&#x6570;&#x7684;&#x5BFC;&#x6570;&#x3002;"></a>(a)&#x63A8;&#x5BFC;sigmoid&#x51FD;&#x6570;&#x7684;&#x5BFC;&#x6570;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-交叉熵的导数"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#b-&#x4EA4;&#x53C9;&#x71B5;&#x7684;&#x5BFC;&#x6570;" class="headerlink" title="(b)&#x4EA4;&#x53C9;&#x71B5;&#x7684;&#x5BFC;&#x6570;"></a>(b)&#x4EA4;&#x53C9;&#x71B5;&#x7684;&#x5BFC;&#x6570;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-推导单隐层神经网络的梯度"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#c-&#x63A8;&#x5BFC;&#x5355;&#x9690;&#x5C42;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x68AF;&#x5EA6;" class="headerlink" title="(c)&#x63A8;&#x5BFC;&#x5355;&#x9690;&#x5C42;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x68AF;&#x5EA6;"></a>(c)&#x63A8;&#x5BFC;&#x5355;&#x9690;&#x5C42;&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x68AF;&#x5EA6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-神经网络的参数数量计算"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#d-&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x53C2;&#x6570;&#x6570;&#x91CF;&#x8BA1;&#x7B97;" class="headerlink" title="(d)&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x53C2;&#x6570;&#x6570;&#x91CF;&#x8BA1;&#x7B97;"></a>(d)&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x7684;&#x53C2;&#x6570;&#x6570;&#x91CF;&#x8BA1;&#x7B97;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e-sigmoid的激活函数和梯度的代码"><span class="nav-number">2.5.</span> <span class="nav-text"><a href="#e-sigmoid&#x7684;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#x548C;&#x68AF;&#x5EA6;&#x7684;&#x4EE3;&#x7801;" class="headerlink" title="(e)sigmoid&#x7684;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#x548C;&#x68AF;&#x5EA6;&#x7684;&#x4EE3;&#x7801;"></a>(e)sigmoid&#x7684;&#x6FC0;&#x6D3B;&#x51FD;&#x6570;&#x548C;&#x68AF;&#x5EA6;&#x7684;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f-梯度检查代码"><span class="nav-number">2.6.</span> <span class="nav-text"><a href="#f-&#x68AF;&#x5EA6;&#x68C0;&#x67E5;&#x4EE3;&#x7801;" class="headerlink" title="(f)&#x68AF;&#x5EA6;&#x68C0;&#x67E5;&#x4EE3;&#x7801;"></a>(f)&#x68AF;&#x5EA6;&#x68C0;&#x67E5;&#x4EE3;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-神经网络代码"><span class="nav-number">2.7.</span> <span class="nav-text"><a href="#g-&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x4EE3;&#x7801;" class="headerlink" title="(g)&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x4EE3;&#x7801;"></a>(g)&#x795E;&#x7ECF;&#x7F51;&#x7EDC;&#x4EE3;&#x7801;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word2vec-40-points-5-bonus"><span class="nav-number">3.</span> <span class="nav-text"><a href="#word2vec-40-points-5-bonus" class="headerlink" title="word2vec(40 points + 5 bonus)"></a>word2vec(40 points + 5 bonus)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#a" class="headerlink" title="(a)"></a>(a)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#b" class="headerlink" title="(b)"></a>(b)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#c" class="headerlink" title="(c)"></a>(c)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#d" class="headerlink" title="(d)"></a>(d)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#e"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#e" class="headerlink" title="(e)"></a>(e)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#f"><span class="nav-number">3.6.</span> <span class="nav-text"><a href="#f" class="headerlink" title="(f)"></a>(f)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#g-测试运行"><span class="nav-number">3.7.</span> <span class="nav-text"><a href="#g-&#x6D4B;&#x8BD5;&#x8FD0;&#x884C;" class="headerlink" title="(g)&#x6D4B;&#x8BD5;&#x8FD0;&#x884C;"></a>(g)&#x6D4B;&#x8BD5;&#x8FD0;&#x884C;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#h"><span class="nav-number">3.8.</span> <span class="nav-text"><a href="#h" class="headerlink" title="(h)"></a>(h)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情感分析"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x60C5;&#x611F;&#x5206;&#x6790;" class="headerlink" title="&#x60C5;&#x611F;&#x5206;&#x6790;"></a>&#x60C5;&#x611F;&#x5206;&#x6790;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-1"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#a-1" class="headerlink" title="(a)"></a>(a)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-1"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#b-1" class="headerlink" title="(b)"></a>(b)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-1"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#c-1" class="headerlink" title="(c)"></a>(c)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-1"><span class="nav-number">4.4.</span> <span class="nav-text"><a href="#d-1" class="headerlink" title="(d)"></a>(d)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">5.</span> <span class="nav-text"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XuGB</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: window.location.pathname,
+                    owner: 'GBXU',
+                    repo: 'gbxu.github.io',
+                    oauth: {
+                        client_id: '181b263ac1753db99459',
+                        client_secret: '6336bf552f4a2a5cedfe493e12dddb85c8d83372',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
