@@ -725,7 +725,7 @@
     
         <script type="text/javascript">
             var gitment = new Gitment({
-                    id: window.location.href,
+                    id: decodeURI(window.location.pathname),
                     owner: 'gbxu',
                     repo: 'gbxu.github.io',
                     oauth: {
