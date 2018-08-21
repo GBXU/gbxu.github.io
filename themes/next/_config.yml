@@ -531,7 +531,7 @@ vendors:
 gitment:
     enable: true    # gitment评论系统开关
     lazy: false  # 评论懒加载开关
-    owner: GBXU # GitHub用户名
+    owner: gbxu # GitHub用户名
     repo: gbxu.github.io # 存储评论数据的GitHub仓库的仓库名
     client_id:  181b263ac1753db99459 # 复制注册OAuth Application后得到的Client ID
     client_secret: 6336bf552f4a2a5cedfe493e12dddb85c8d83372 # 复制注册OAuth Application后得到的Client Secret
@@ -546,5 +546,5 @@ version: 5.1.0
 
 
 reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
-wechatpay: http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+wechatpay: http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png
 alipay: #支付宝当面付图片的url
