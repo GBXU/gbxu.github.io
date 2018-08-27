@@ -43,7 +43,7 @@ None
 * I take huge pleasure in photograph. I will try it soon.
 
 ## #0
-* “在隆冬，我终于知道，我身上有一个不可战胜的夏天。” --阿尔贝·加缪
+* "In the depths of winter, I discovered there was in me an invincible summer." --Albert Camus
 * "The proof of a system's value is its existence." --Alan J. Perlis
 * [one piece of advice to give to students - Andrew Ng's Answer](https://www.quora.com/What-is-one-piece-of-advice-you-would-like-to-give-to-students-as-an-educator/answer/Andrew-Ng?srid=m5MJ): When deciding how to spend your time, I recommend you take into account two criteria:
   * Whether what you're doing can change the world.
