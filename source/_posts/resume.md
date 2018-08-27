@@ -17,7 +17,7 @@ tags: [resume, cv]
 * LinKedin: [@Guanbin Xu](https://www.linkedin.com/in/guanbin-xu-900456121)
 * Tech blog: [@gb_QA_log](https://www.jianshu.com/u/836c38017e2a)
 * Github: [@gbxu](https://github.com/gbxu/)
-* Wechat: [guanbin_xu](https://github.com/gbxu/gbxu.github.io/blob/a4f33f8bf7c55165657d5ccffb6cf8e7d18e6f9a/themes/next/source/images/Wechat.jpeg?raw=true)
+* Wechat: [guanbin_xu](https://raw.githubusercontent.com/gbxu/gbxu.github.io/backup/themes/next/source/images/Wechat.jpeg)
 * twitter: [@guanbin_xu](https://twitter.com/guanbin_xu)
 
 ## Research Interests
