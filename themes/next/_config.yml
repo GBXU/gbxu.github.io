@@ -136,6 +136,7 @@ font:
 social:
   #LinkLabel: Link
   Github: https://github.com/gbxu/
+  E-mail: mailto:gb.xu@outlook.com?subject="from GithubPages CV"
   Twitter: https://twitter.com/guanbin_xu
   LinKedin: https://www.linkedin.com/in/guanbin-xu-900456121
   Tech blog: https://www.jianshu.com/u/836c38017e2a
@@ -151,6 +152,7 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
+  E-mail: envelope
   Twitter: twitter
   LinKedin: linKedin
   Tech blog: home
@@ -551,5 +553,5 @@ version: 5.1.0
 
 
 reward_comment: 坚持原创技术分享，您的支持将鼓励我继续创作！
-wechatpay: http://upload-images.jianshu.io/upload_images/2812342-d639c3f1a0ccd721.png
+wechatpay: https://github.com/gbxu/gbxu.github.io/blob/a4f33f8bf7c55165657d5ccffb6cf8e7d18e6f9a/themes/next/source/images/WechatIMG16.jpeg?raw=true
 alipay: #支付宝当面付图片的url

@@ -1,8 +1,8 @@
 #!/bin/bash
-cd ~/app/githubio/hexo
+cd ~/Apps/githubio/hexo
 git add *
 git commit -m "modify"
 git push github master:backup
 
-cd ~/app/githubio/hexo/source/_posts
+cd ~/Apps/githubio/hexo/source/_posts
 hexo clean && hexo g && hexo d
