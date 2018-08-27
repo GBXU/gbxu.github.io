@@ -133,8 +133,12 @@ font:
 # Social Links
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
-#social:
+social:
   #LinkLabel: Link
+  Github: https://github.com/gbxu/
+  Twitter: https://twitter.com/guanbin_xu
+  LinKedin: https://www.linkedin.com/in/guanbin-xu-900456121
+  Tech blog: https://www.jianshu.com/u/836c38017e2a
 
 
 # Social Links Icons
@@ -148,7 +152,8 @@ social_icons:
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
   Twitter: twitter
-  Weibo: weibo
+  LinKedin: linKedin
+  Tech blog: home
 
 
 # Sidebar Avatar
@@ -474,7 +479,7 @@ use_motion: true
 fancybox: true
 
 # Canvas-nest
-canvas_nest: false
+canvas_nest: true
 
 # Script Vendors.
 # Set a CDN address for the vendor you want to customize.
