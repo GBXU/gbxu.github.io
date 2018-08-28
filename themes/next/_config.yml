@@ -136,7 +136,7 @@ font:
 social:
   #LinkLabel: Link
   Github: https://github.com/gbxu/
-  E-mail: mailto:gb.xu@outlook.com?subject="from GithubPages CV"
+  E-mail: mailto:gb.xu@outlook.com?subject=from%20GithubPages%20CV
   Twitter: https://twitter.com/guanbin_xu
   LinKedin: https://www.linkedin.com/in/guanbin-xu-900456121
   Tech blog: https://www.jianshu.com/u/836c38017e2a
